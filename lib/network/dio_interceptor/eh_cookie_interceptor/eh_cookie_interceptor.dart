@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:fehviewer/common/controller/user_controller.dart';
 import 'package:fehviewer/utils/logger.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:quiver/core.dart';
 
 class EhCookieInterceptor extends Interceptor {
   @override
@@ -50,11 +51,12 @@ class EhCookieInterceptor extends Interceptor {
       final igneous = getCookiesValue(_cookies, 'igneous');
 
       userController.user(userController.user.value.copyWith(
-        memberId: getCookiesValue(_cookies, 'ipb_member_id'),
-        passHash: getCookiesValue(_cookies, 'ipb_pass_hash'),
-        igneous: igneous != 'mystery' && igneous != '' ? igneous : null,
-        hathPerks: getCookiesValue(_cookies, 'hath_perks'),
-        sk: getCookiesValue(_cookies, 'sk'),
+        memberId: Optional.of(getCookiesValue(_cookies, 'ipb_member_id')),
+        passHash: Optional.of(getCookiesValue(_cookies, 'ipb_pass_hash')),
+        igneous:
+            Optional.of(igneous != 'mystery' && igneous != '' ? igneous : null),
+        hathPerks: Optional.of(getCookiesValue(_cookies, 'hath_perks')),
+        sk: Optional.of(getCookiesValue(_cookies, 'sk')),
       ));
 
       logger.v('${userController.user.value.toJson()}');

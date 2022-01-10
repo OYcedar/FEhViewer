@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class EhSettingItem {
-  
+
   const EhSettingItem({
     this.type,
     this.ser,
@@ -37,21 +40,21 @@ class EhSettingItem {
     name: name
   );
 
-    
+
   EhSettingItem copyWith({
-    String? type,
-    String? ser,
-    String? value,
-    String? name
+    Optional<String?>? type,
+    Optional<String?>? ser,
+    Optional<String?>? value,
+    Optional<String?>? name
   }) => EhSettingItem(
-    type: type ?? this.type,
-    ser: ser ?? this.ser,
-    value: value ?? this.value,
-    name: name ?? this.name,
-  );  
+    type: checkOptional(type, this.type),
+    ser: checkOptional(ser, this.ser),
+    value: checkOptional(value, this.value),
+    name: checkOptional(name, this.name),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is EhSettingItem && type == other.type && ser == other.ser && value == other.value && name == other.name;
 
   @override

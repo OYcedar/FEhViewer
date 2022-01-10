@@ -5,6 +5,7 @@ import 'package:fehviewer/route/routes.dart';
 import 'package:fehviewer/utils/logger.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/auth_strings.dart';
+import 'package:quiver/core.dart';
 
 import '../global.dart';
 
@@ -30,7 +31,7 @@ class AutoLockController extends GetxController {
   int get lastLeaveTime => _lastLeaveTime;
   set lastLeaveTime(int val) {
     _lastLeaveTime = val;
-    autoLock = autoLock.copyWith(lastLeaveTime: val);
+    autoLock = autoLock.copyWith(lastLeaveTime: Optional.of(val));
     Global.saveProfile();
   }
 
@@ -42,7 +43,7 @@ class AutoLockController extends GetxController {
   bool get isLocking => _isLocking;
   set isLocking(bool val) {
     _isLocking = val;
-    autoLock = autoLock.copyWith(isLocking: val);
+    autoLock = autoLock.copyWith(isLocking: Optional.of(val));
     Global.saveProfile();
   }
 

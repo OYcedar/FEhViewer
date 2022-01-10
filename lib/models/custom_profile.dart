@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'advance_search.dart';
 
 @immutable
 class CustomProfile {
-  
+
   const CustomProfile({
     required this.uuid,
     required this.name,
@@ -19,7 +22,7 @@ class CustomProfile {
 
   final String uuid;
   final String name;
-  final List<dynamic>? searchText;
+  final List<String>? searchText;
   final String? listTypeValue;
   final String? catsTypeValue;
   final int? cats;
@@ -31,7 +34,7 @@ class CustomProfile {
   factory CustomProfile.fromJson(Map<String,dynamic> json) => CustomProfile(
     uuid: json['uuid'] as String,
     name: json['name'] as String,
-    searchText: json['searchText'] != null ? (json['searchText'] as List? ?? []).map((e) => e as dynamic).toList() : null,
+    searchText: json['searchText'] != null ? (json['searchText'] as List? ?? []).map((e) => e as String).toList() : null,
     listTypeValue: json['listTypeValue'] != null ? json['listTypeValue'] as String : null,
     catsTypeValue: json['catsTypeValue'] != null ? json['catsTypeValue'] as String : null,
     cats: json['cats'] != null ? json['cats'] as int : null,
@@ -67,33 +70,33 @@ class CustomProfile {
     listModeValue: listModeValue
   );
 
-    
+
   CustomProfile copyWith({
     String? uuid,
     String? name,
-    List<dynamic>? searchText,
-    String? listTypeValue,
-    String? catsTypeValue,
-    int? cats,
-    bool? enableAdvance,
-    String? advSearchTypeValue,
-    AdvanceSearch? advSearch,
-    String? listModeValue
+    Optional<List<String>?>? searchText,
+    Optional<String?>? listTypeValue,
+    Optional<String?>? catsTypeValue,
+    Optional<int?>? cats,
+    Optional<bool?>? enableAdvance,
+    Optional<String?>? advSearchTypeValue,
+    Optional<AdvanceSearch?>? advSearch,
+    Optional<String?>? listModeValue
   }) => CustomProfile(
     uuid: uuid ?? this.uuid,
     name: name ?? this.name,
-    searchText: searchText ?? this.searchText,
-    listTypeValue: listTypeValue ?? this.listTypeValue,
-    catsTypeValue: catsTypeValue ?? this.catsTypeValue,
-    cats: cats ?? this.cats,
-    enableAdvance: enableAdvance ?? this.enableAdvance,
-    advSearchTypeValue: advSearchTypeValue ?? this.advSearchTypeValue,
-    advSearch: advSearch ?? this.advSearch,
-    listModeValue: listModeValue ?? this.listModeValue,
-  );  
+    searchText: checkOptional(searchText, this.searchText),
+    listTypeValue: checkOptional(listTypeValue, this.listTypeValue),
+    catsTypeValue: checkOptional(catsTypeValue, this.catsTypeValue),
+    cats: checkOptional(cats, this.cats),
+    enableAdvance: checkOptional(enableAdvance, this.enableAdvance),
+    advSearchTypeValue: checkOptional(advSearchTypeValue, this.advSearchTypeValue),
+    advSearch: checkOptional(advSearch, this.advSearch),
+    listModeValue: checkOptional(listModeValue, this.listModeValue),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is CustomProfile && uuid == other.uuid && name == other.name && searchText == other.searchText && listTypeValue == other.listTypeValue && catsTypeValue == other.catsTypeValue && cats == other.cats && enableAdvance == other.enableAdvance && advSearchTypeValue == other.advSearchTypeValue && advSearch == other.advSearch && listModeValue == other.listModeValue;
 
   @override

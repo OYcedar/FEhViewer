@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class GalleryTag {
-  
+
   const GalleryTag({
     required this.title,
     required this.type,
@@ -42,23 +45,23 @@ class GalleryTag {
     vote: vote
   );
 
-    
+
   GalleryTag copyWith({
     String? title,
     String? type,
     String? tagTranslat,
-    String? intro,
-    int? vote
+    Optional<String?>? intro,
+    Optional<int?>? vote
   }) => GalleryTag(
     title: title ?? this.title,
     type: type ?? this.type,
     tagTranslat: tagTranslat ?? this.tagTranslat,
-    intro: intro ?? this.intro,
-    vote: vote ?? this.vote,
-  );  
+    intro: checkOptional(intro, this.intro),
+    vote: checkOptional(vote, this.vote),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is GalleryTag && title == other.title && type == other.type && tagTranslat == other.tagTranslat && intro == other.intro && vote == other.vote;
 
   @override

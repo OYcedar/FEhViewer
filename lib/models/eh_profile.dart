@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class EhProfile {
-  
+
   const EhProfile({
     required this.name,
     required this.value,
@@ -32,7 +35,7 @@ class EhProfile {
     selected: selected
   );
 
-    
+
   EhProfile copyWith({
     String? name,
     int? value,
@@ -41,10 +44,10 @@ class EhProfile {
     name: name ?? this.name,
     value: value ?? this.value,
     selected: selected ?? this.selected,
-  );  
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is EhProfile && name == other.name && value == other.value && selected == other.selected;
 
   @override

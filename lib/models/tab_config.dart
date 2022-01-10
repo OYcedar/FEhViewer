@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'tab_item.dart';
 
 @immutable
 class TabConfig {
-  
+
   const TabConfig({
     required this.tabItemList,
   });
@@ -22,15 +25,15 @@ class TabConfig {
     tabItemList: tabItemList.map((e) => e.clone()).toList()
   );
 
-    
+
   TabConfig copyWith({
     List<TabItem>? tabItemList
   }) => TabConfig(
     tabItemList: tabItemList ?? this.tabItemList,
-  );  
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is TabConfig && tabItemList == other.tabItemList;
 
   @override

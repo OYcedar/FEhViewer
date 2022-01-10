@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:quiver/core.dart';
 
 class WebDavSetting extends GetView<WebdavController> {
   const WebDavSetting({Key? key}) : super(key: key);
@@ -92,8 +93,8 @@ class WebDavSettingView extends GetView<WebdavController> {
                       child: Text(L10n.of(context).ok),
                       onPressed: () async {
                         // 登出WebDAV
-                        Global.profile = Global.profile
-                            .copyWith(webdav: const WebdavProfile(url: ''));
+                        Global.profile = Global.profile.copyWith(
+                            webdav: Optional.of(const WebdavProfile(url: '')));
                         Global.saveProfile();
                         Get.replace(const WebdavProfile(url: ''));
                         controller.closeClient();

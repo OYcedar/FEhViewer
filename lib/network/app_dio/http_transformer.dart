@@ -7,6 +7,7 @@ import 'package:fehviewer/common/parser/eh_parser.dart';
 import 'package:fehviewer/fehviewer.dart';
 import 'package:fehviewer/pages/gallery/controller/archiver_controller.dart';
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
 
 import '../request.dart';
 import 'exception.dart';
@@ -324,11 +325,11 @@ class UserLoginTransformer extends HttpTransformer {
     }
 
     final User user = kDefUser.copyWith(
-      memberId: cookieMap['ipb_member_id'],
-      passHash: cookieMap['ipb_pass_hash'],
-      igneous: cookieMap['igneous'],
-      hathPerks: cookieMap['hath_perks'],
-      sk: cookieMap['sk'],
+      memberId: Optional.of(cookieMap['ipb_member_id']),
+      passHash: Optional.of(cookieMap['ipb_pass_hash']),
+      igneous: Optional.of(cookieMap['igneous']),
+      hathPerks: Optional.of(cookieMap['hath_perks']),
+      sk: Optional.of(cookieMap['sk']),
     );
     return DioHttpResponse<User>.success(user);
   }

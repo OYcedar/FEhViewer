@@ -14,6 +14,7 @@ import 'package:fehviewer/pages/gallery/controller/archiver_controller.dart';
 import 'package:fehviewer/pages/tab/fetch_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' hide FormData, Response;
+import 'package:quiver/core.dart';
 
 import 'app_dio/pdio.dart';
 import 'gallery_request.dart';
@@ -280,7 +281,8 @@ Future<GalleryImage?> fetchImageInfo(
   );
 
   if (httpResponse.ok && httpResponse.data is GalleryImage) {
-    return (httpResponse.data as GalleryImage).copyWith(href: href);
+    return (httpResponse.data as GalleryImage)
+        .copyWith(href: Optional.of(href));
   } else {
     logger.d('error.runtimeType: ${httpResponse.error.runtimeType}');
   }

@@ -2,6 +2,7 @@ import 'package:fehviewer/const/const.dart';
 import 'package:fehviewer/models/base/eh_models.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
+import 'package:quiver/core.dart';
 
 User parseUserProfile(String html) {
   final Document document = parse(html);
@@ -22,7 +23,7 @@ User parseUserProfile(String html) {
   }
 
   return kDefUser.copyWith(
-    avatarUrl: _avatarUrl,
-    nickName: nickName,
+    avatarUrl: Optional.of(_avatarUrl),
+    nickName: Optional.of(nickName),
   );
 }

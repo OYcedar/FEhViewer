@@ -9,6 +9,7 @@ import 'package:fehviewer/pages/tab/fetch_list.dart';
 import 'package:fehviewer/store/floor/entity/tag_translat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 import 'common/controller/tag_trans_controller.dart';
 import 'common/enum.dart';
@@ -21,7 +22,7 @@ extension ExtGC on GalleryCache {
       ViewColumnMode.single;
 
   GalleryCache copyWithMode(ViewColumnMode val) =>
-      copyWith(columnModeVal: EnumToString.convertToString(val));
+      copyWith(columnModeVal: Optional.of(EnumToString.convertToString(val)));
 }
 
 extension ExtTabList on TabConfig {
@@ -69,7 +70,7 @@ extension ExtCommentSpan on GalleryCommentSpan {
 
   // set sType(CommentSpanType val) => type = EnumToString.convertToString(val);
   GalleryCommentSpan copyWithSpanType(CommentSpanType val) =>
-      copyWith(type: EnumToString.convertToString(val));
+      copyWith(type: Optional.of(EnumToString.convertToString(val)));
 }
 
 extension ExtItem on GalleryItem {
@@ -78,49 +79,50 @@ extension ExtItem on GalleryItem {
 
   GalleryItem copyWithAll(GalleryItem item) {
     return copyWith(
-        token: item.token,
-        showKey: item.showKey,
-        url: item.url,
-        imgUrl: item.imgUrl,
-        imgUrlL: item.imgUrlL,
-        imgHeight: item.imgHeight,
-        imgWidth: item.imgWidth,
-        japaneseTitle: item.japaneseTitle,
-        englishTitle: item.englishTitle,
-        category: item.category,
-        uploader: item.uploader,
-        posted: item.posted,
-        language: item.language,
-        filecount: item.filecount,
-        rating: item.rating,
-        ratingCount: item.ratingCount,
-        torrentcount: item.torrentcount,
-        torrents: item.torrents,
-        filesize: item.filesize,
-        filesizeText: item.filesizeText,
-        visible: item.visible,
-        parent: item.parent,
-        ratingFallBack: item.ratingFallBack,
-        numberOfReviews: item.numberOfReviews,
-        postTime: item.postTime,
-        favoritedCount: item.favoritedCount,
-        favTitle: item.favTitle,
-        favcat: item.favcat,
-        localFav: item.localFav,
-        simpleTags: item.simpleTags,
-        tagsFromApi: item.tagsFromApi?.toList(),
-        translated: item.translated,
-        tagGroup: item.tagGroup,
-        galleryComment: item.galleryComment,
-        galleryImages: item.galleryImages,
-        apikey: item.apikey,
-        apiuid: item.apiuid,
-        isRatinged: item.isRatinged,
-        colorRating: item.colorRating,
-        archiverLink: item.archiverLink,
-        torrentLink: item.torrentLink,
-        lastViewTime: item.lastViewTime,
-        pageOfList: item.pageOfList);
+      token: Optional.of(item.token),
+      showKey: Optional.of(item.showKey),
+      url: Optional.of(item.url),
+      imgUrl: Optional.of(item.imgUrl),
+      imgUrlL: Optional.of(item.imgUrlL),
+      imgHeight: Optional.of(item.imgHeight),
+      imgWidth: Optional.of(item.imgWidth),
+      japaneseTitle: Optional.of(item.japaneseTitle),
+      englishTitle: Optional.of(item.englishTitle),
+      category: Optional.of(item.category),
+      uploader: Optional.of(item.uploader),
+      posted: Optional.of(item.posted),
+      language: Optional.of(item.language),
+      filecount: Optional.of(item.filecount),
+      rating: Optional.of(item.rating),
+      ratingCount: Optional.of(item.ratingCount),
+      torrentcount: Optional.of(item.torrentcount),
+      torrents: Optional.of(item.torrents),
+      filesize: Optional.of(item.filesize),
+      filesizeText: Optional.of(item.filesizeText),
+      visible: Optional.of(item.visible),
+      parent: Optional.of(item.parent),
+      ratingFallBack: Optional.of(item.ratingFallBack),
+      numberOfReviews: Optional.of(item.numberOfReviews),
+      postTime: Optional.of(item.postTime),
+      favoritedCount: Optional.of(item.favoritedCount),
+      favTitle: Optional.of(item.favTitle),
+      favcat: Optional.of(item.favcat),
+      localFav: Optional.of(item.localFav),
+      simpleTags: Optional.of(item.simpleTags),
+      tagsFromApi: Optional.of(item.tagsFromApi?.toList()),
+      translated: Optional.of(item.translated),
+      tagGroup: Optional.of(item.tagGroup),
+      galleryComment: Optional.of(item.galleryComment),
+      galleryImages: Optional.of(item.galleryImages),
+      apikey: Optional.of(item.apikey),
+      apiuid: Optional.of(item.apiuid),
+      isRatinged: Optional.of(item.isRatinged),
+      colorRating: Optional.of(item.colorRating),
+      archiverLink: Optional.of(item.archiverLink),
+      torrentLink: Optional.of(item.torrentLink),
+      lastViewTime: Optional.of(item.lastViewTime),
+      pageOfList: Optional.of(item.pageOfList),
+    );
   }
 }
 
@@ -298,7 +300,7 @@ extension ExtEhSettings on EhSettings {
 
     final _index = xn.indexWhere((element) => element.name == namespace);
     if (_index > -1) {
-      xn[_index] = xn[_index].copyWith(value: value);
+      xn[_index] = xn[_index].copyWith(value: Optional.of(value));
     }
   }
 
@@ -336,7 +338,7 @@ extension ExtEhSettings on EhSettings {
 
     final _index = xn.indexWhere((element) => element.ser == ser);
     if (_index > -1) {
-      xn[_index] = xn[_index].copyWith(value: value);
+      xn[_index] = xn[_index].copyWith(value: Optional.of(value));
     } else {
       xn.add(EhSettingItem(ser: ser, value: value, type: 'xn'));
     }
@@ -348,7 +350,7 @@ extension ExtEhSettings on EhSettings {
     }
     final _index = xl.indexWhere((element) => element.ser == ser);
     if (_index > -1) {
-      xl[_index] = xl[_index].copyWith(value: value);
+      xl[_index] = xl[_index].copyWith(value: Optional.of(value));
     } else {
       xl.add(EhSettingItem(ser: ser, value: value, type: 'xl'));
     }
@@ -360,7 +362,7 @@ extension ExtEhSettings on EhSettings {
     }
     final _index = favorites.indexWhere((element) => element.ser == ser);
     if (_index > -1) {
-      favorites[_index] = favorites[_index].copyWith(value: value);
+      favorites[_index] = favorites[_index].copyWith(value: Optional.of(value));
     } else {
       favorites.add(EhSettingItem(ser: ser, value: value, type: 'xl'));
     }
@@ -436,16 +438,16 @@ extension ExtGalleryList on GalleryList {
     final _gallerysF = gallerys?.map((e) async {
           final _simpleTagsF = e.simpleTags?.map((e) async {
                 final tr = await trController.getTagTranslateText(e.text!);
-                return e.copyWith(translat: tr ?? e.text);
+                return e.copyWith(translat: Optional.of(tr ?? e.text));
               }) ??
               [];
           final _simpleTags = Future.wait<SimpleTag>(_simpleTagsF);
-          return e.copyWith(simpleTags: await _simpleTags);
+          return e.copyWith(simpleTags: Optional.of(await _simpleTags));
         }) ??
         [];
 
     final _gallerys = Future.wait(_gallerysF);
-    return copyWith(gallerys: await _gallerys);
+    return copyWith(gallerys: Optional.of(await _gallerys));
   }
 }
 
@@ -497,7 +499,7 @@ extension ExtCustomProfile on CustomProfile {
       GalleryListType.gallery;
 
   CustomProfile copyWithListType(GalleryListType value) =>
-      copyWith(listTypeValue: value.name);
+      copyWith(listTypeValue: Optional.of(value.name));
 
   ListModeEnum get listMode =>
       EnumToString.fromString(ListModeEnum.values, listModeValue ?? '') ??

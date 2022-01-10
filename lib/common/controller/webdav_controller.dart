@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
+import 'package:quiver/core.dart';
 import 'package:webdav_client/webdav_client.dart' as webdav;
 
 import '../global.dart';
@@ -84,18 +85,18 @@ class WebdavController extends GetxController {
   }
 
   set syncHistory(bool val) {
-    final _dav = webdavProfile.copyWith(syncHistory: val);
+    final _dav = webdavProfile.copyWith(syncHistory: Optional.of(val));
     _syncHistory = val;
     update();
-    Global.profile = Global.profile.copyWith(webdav: _dav);
+    Global.profile = Global.profile.copyWith(webdav: Optional.of(_dav));
     Global.saveProfile();
   }
 
   set syncReadProgress(bool val) {
-    final _dav = webdavProfile.copyWith(syncReadProgress: val);
+    final _dav = webdavProfile.copyWith(syncReadProgress: Optional.of(val));
     _syncReadProgress = val;
     update();
-    Global.profile = Global.profile.copyWith(webdav: _dav);
+    Global.profile = Global.profile.copyWith(webdav: Optional.of(_dav));
     Global.saveProfile();
   }
 
@@ -237,9 +238,9 @@ class WebdavController extends GetxController {
     final _path = path.join(Global.tempPath, his.gid);
     final File _file = File(_path);
     final _his = his.copyWith(
-      galleryComment: [],
-      galleryImages: [],
-      tagGroup: [],
+      galleryComment: Optional.of([]),
+      galleryImages: Optional.of([]),
+      tagGroup: Optional.of([]),
     );
 
     try {
@@ -314,7 +315,7 @@ class WebdavController extends GetxController {
     final _path = path.join(Global.tempPath, 'read', read.gid);
     final File _file = File(_path);
     final _read = read.copyWith(
-      columnModeVal: '',
+      columnModeVal: Optional.of(''),
     );
     final _text = jsonEncode(_read);
     // final base64Text = base64Encode(utf8.encode(_text));
@@ -409,7 +410,7 @@ class WebdavController extends GetxController {
       // 保存账号 rebuild
       WebdavProfile webdavUser =
           WebdavProfile(url: url, user: user, password: pwd);
-      Global.profile = Global.profile.copyWith(webdav: webdavUser);
+      Global.profile = Global.profile.copyWith(webdav: Optional.of(webdavUser));
       Global.saveProfile();
       Get.replace(webdavUser);
       initClient();

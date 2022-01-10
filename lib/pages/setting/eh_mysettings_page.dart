@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:quiver/core.dart';
 
 import 'controller/eh_mysettings_controller.dart';
 import '../../component/setting_base.dart';

@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class DownloadArchiverTaskInfo {
-  
+
   const DownloadArchiverTaskInfo({
     this.tag,
     this.gid,
@@ -72,35 +75,35 @@ class DownloadArchiverTaskInfo {
     progress: progress
   );
 
-    
+
   DownloadArchiverTaskInfo copyWith({
-    String? tag,
-    String? gid,
-    String? type,
-    String? title,
-    String? taskId,
-    String? filePath,
-    String? imgUrl,
-    String? galleryUrl,
-    String? dowmloadType,
-    int? status,
-    int? progress
+    Optional<String?>? tag,
+    Optional<String?>? gid,
+    Optional<String?>? type,
+    Optional<String?>? title,
+    Optional<String?>? taskId,
+    Optional<String?>? filePath,
+    Optional<String?>? imgUrl,
+    Optional<String?>? galleryUrl,
+    Optional<String?>? dowmloadType,
+    Optional<int?>? status,
+    Optional<int?>? progress
   }) => DownloadArchiverTaskInfo(
-    tag: tag ?? this.tag,
-    gid: gid ?? this.gid,
-    type: type ?? this.type,
-    title: title ?? this.title,
-    taskId: taskId ?? this.taskId,
-    filePath: filePath ?? this.filePath,
-    imgUrl: imgUrl ?? this.imgUrl,
-    galleryUrl: galleryUrl ?? this.galleryUrl,
-    dowmloadType: dowmloadType ?? this.dowmloadType,
-    status: status ?? this.status,
-    progress: progress ?? this.progress,
-  );  
+    tag: checkOptional(tag, this.tag),
+    gid: checkOptional(gid, this.gid),
+    type: checkOptional(type, this.type),
+    title: checkOptional(title, this.title),
+    taskId: checkOptional(taskId, this.taskId),
+    filePath: checkOptional(filePath, this.filePath),
+    imgUrl: checkOptional(imgUrl, this.imgUrl),
+    galleryUrl: checkOptional(galleryUrl, this.galleryUrl),
+    dowmloadType: checkOptional(dowmloadType, this.dowmloadType),
+    status: checkOptional(status, this.status),
+    progress: checkOptional(progress, this.progress),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is DownloadArchiverTaskInfo && tag == other.tag && gid == other.gid && type == other.type && title == other.title && taskId == other.taskId && filePath == other.filePath && imgUrl == other.imgUrl && galleryUrl == other.galleryUrl && dowmloadType == other.dowmloadType && status == other.status && progress == other.progress;
 
   @override

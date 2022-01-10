@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class GalleryImage {
-  
+
   const GalleryImage({
     this.largeThumb,
     this.completeCache,
@@ -112,51 +115,51 @@ class GalleryImage {
     filePath: filePath
   );
 
-    
+
   GalleryImage copyWith({
-    bool? largeThumb,
-    bool? completeCache,
-    bool? startPrecache,
+    Optional<bool?>? largeThumb,
+    Optional<bool?>? completeCache,
+    Optional<bool?>? startPrecache,
     int? ser,
-    String? href,
-    String? imageUrl,
-    String? originImageUrl,
-    String? thumbUrl,
-    double? thumbHeight,
-    double? thumbWidth,
-    double? imageHeight,
-    double? imageWidth,
-    double? offSet,
-    String? sourceId,
-    bool? completeHeight,
-    String? gid,
-    String? token,
-    bool? completeDownload,
-    String? filePath
+    Optional<String?>? href,
+    Optional<String?>? imageUrl,
+    Optional<String?>? originImageUrl,
+    Optional<String?>? thumbUrl,
+    Optional<double?>? thumbHeight,
+    Optional<double?>? thumbWidth,
+    Optional<double?>? imageHeight,
+    Optional<double?>? imageWidth,
+    Optional<double?>? offSet,
+    Optional<String?>? sourceId,
+    Optional<bool?>? completeHeight,
+    Optional<String?>? gid,
+    Optional<String?>? token,
+    Optional<bool?>? completeDownload,
+    Optional<String?>? filePath
   }) => GalleryImage(
-    largeThumb: largeThumb ?? this.largeThumb,
-    completeCache: completeCache ?? this.completeCache,
-    startPrecache: startPrecache ?? this.startPrecache,
+    largeThumb: checkOptional(largeThumb, this.largeThumb),
+    completeCache: checkOptional(completeCache, this.completeCache),
+    startPrecache: checkOptional(startPrecache, this.startPrecache),
     ser: ser ?? this.ser,
-    href: href ?? this.href,
-    imageUrl: imageUrl ?? this.imageUrl,
-    originImageUrl: originImageUrl ?? this.originImageUrl,
-    thumbUrl: thumbUrl ?? this.thumbUrl,
-    thumbHeight: thumbHeight ?? this.thumbHeight,
-    thumbWidth: thumbWidth ?? this.thumbWidth,
-    imageHeight: imageHeight ?? this.imageHeight,
-    imageWidth: imageWidth ?? this.imageWidth,
-    offSet: offSet ?? this.offSet,
-    sourceId: sourceId ?? this.sourceId,
-    completeHeight: completeHeight ?? this.completeHeight,
-    gid: gid ?? this.gid,
-    token: token ?? this.token,
-    completeDownload: completeDownload ?? this.completeDownload,
-    filePath: filePath ?? this.filePath,
-  );  
+    href: checkOptional(href, this.href),
+    imageUrl: checkOptional(imageUrl, this.imageUrl),
+    originImageUrl: checkOptional(originImageUrl, this.originImageUrl),
+    thumbUrl: checkOptional(thumbUrl, this.thumbUrl),
+    thumbHeight: checkOptional(thumbHeight, this.thumbHeight),
+    thumbWidth: checkOptional(thumbWidth, this.thumbWidth),
+    imageHeight: checkOptional(imageHeight, this.imageHeight),
+    imageWidth: checkOptional(imageWidth, this.imageWidth),
+    offSet: checkOptional(offSet, this.offSet),
+    sourceId: checkOptional(sourceId, this.sourceId),
+    completeHeight: checkOptional(completeHeight, this.completeHeight),
+    gid: checkOptional(gid, this.gid),
+    token: checkOptional(token, this.token),
+    completeDownload: checkOptional(completeDownload, this.completeDownload),
+    filePath: checkOptional(filePath, this.filePath),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is GalleryImage && largeThumb == other.largeThumb && completeCache == other.completeCache && startPrecache == other.startPrecache && ser == other.ser && href == other.href && imageUrl == other.imageUrl && originImageUrl == other.originImageUrl && thumbUrl == other.thumbUrl && thumbHeight == other.thumbHeight && thumbWidth == other.thumbWidth && imageHeight == other.imageHeight && imageWidth == other.imageWidth && offSet == other.offSet && sourceId == other.sourceId && completeHeight == other.completeHeight && gid == other.gid && token == other.token && completeDownload == other.completeDownload && filePath == other.filePath;
 
   @override

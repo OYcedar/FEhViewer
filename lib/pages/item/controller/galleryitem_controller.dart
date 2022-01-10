@@ -8,6 +8,7 @@ import 'package:fehviewer/pages/tab/controller/tabhome_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 class GalleryItemController extends GetxController {
   GalleryItemController(this.galleryItem);
@@ -47,14 +48,15 @@ class GalleryItemController extends GetxController {
 
   void setFavTitleAndFavcat({String favTitle = '', String? favcat}) {
     logger.v('setFavTitle ori isFav :$isFav');
-    galleryItem = galleryItem.copyWith(favTitle: favTitle);
+    galleryItem = galleryItem.copyWith(favTitle: Optional.of(favTitle));
     isFav = favTitle.isNotEmpty;
     logger.v('setFavTitle cur isFav :$isFav');
     if (favcat != null || (favcat?.isNotEmpty ?? false)) {
-      galleryItem = galleryItem.copyWith(favcat: favcat);
+      galleryItem = galleryItem.copyWith(favcat: Optional.of(favcat));
       logger.v('item set favcat $favcat');
     } else {
-      galleryItem = galleryItem.copyWith(favcat: '', favTitle: '');
+      galleryItem = galleryItem.copyWith(
+          favcat: Optional.of(''), favTitle: Optional.of(''));
     }
   }
 
@@ -83,7 +85,7 @@ class GalleryItemController extends GetxController {
   }
 
   set localFav(bool value) {
-    galleryItem = galleryItem.copyWith(localFav: localFav);
+    galleryItem = galleryItem.copyWith(localFav: Optional.of(localFav));
     update();
   }
 
@@ -91,7 +93,8 @@ class GalleryItemController extends GetxController {
 
   void firstPutImage(List<GalleryImage> galleryImage) {
     if (galleryImage.isNotEmpty) {
-      galleryItem = galleryItem.copyWith(galleryImages: galleryImage);
+      galleryItem =
+          galleryItem.copyWith(galleryImages: Optional.of(galleryImage));
     }
 
     firstPageImage =

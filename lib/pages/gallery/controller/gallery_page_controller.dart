@@ -18,6 +18,7 @@ import 'package:fehviewer/pages/gallery/view/gallery_page.dart';
 import 'package:fehviewer/pages/item/controller/galleryitem_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 import 'all_previews_controller.dart';
 import 'comment_controller.dart';
@@ -63,11 +64,11 @@ class GalleryPageController extends GetxController
     isRatinged = true;
 
     galleryItem = galleryItem?.copyWith(
-      isRatinged: true,
-      ratingFallBack: ratingUsr,
-      rating: ratingAvg,
-      ratingCount: ratingCnt.toString(),
-      colorRating: colorRating,
+      isRatinged: Optional.of(true),
+      ratingFallBack: Optional.of(ratingUsr),
+      rating: Optional.of(ratingAvg),
+      ratingCount: Optional.of(ratingCnt.toString()),
+      colorRating: Optional.of(colorRating),
     );
 
     logger.d('update GetIds.PAGE_VIEW_HEADER');
@@ -213,7 +214,7 @@ class GalleryPageController extends GetxController
 
   void setImageAfterRequest(List<GalleryImage>? images) {
     if (images?.isNotEmpty ?? false) {
-      galleryItem = galleryItem?.copyWith(galleryImages: images);
+      galleryItem = galleryItem?.copyWith(galleryImages: Optional.of(images));
     }
 
     _firstPageImage =
@@ -239,7 +240,7 @@ class GalleryPageController extends GetxController
   /// 是否存在本地收藏中
   set localFav(bool value) {
     // galleryItem.localFav = value;
-    galleryItem = galleryItem?.copyWith(localFav: value);
+    galleryItem = galleryItem?.copyWith(localFav: Optional.of(value));
   }
 
   bool get localFav => galleryItem?.localFav ?? false;
@@ -259,7 +260,7 @@ class GalleryPageController extends GetxController
 
       // 检查画廊是否包含在本地收藏中
       final bool _localFav = _isInLocalFav(galleryItem?.gid ?? '0');
-      galleryItem = galleryItem?.copyWith(localFav: _localFav);
+      galleryItem = galleryItem?.copyWith(localFav: Optional.of(_localFav));
 
       final String? _oriColorRating = galleryItem?.colorRating;
       final String? _oriRatingCount = galleryItem?.ratingCount;
@@ -290,9 +291,11 @@ class GalleryPageController extends GetxController
           isRatinged = galleryItem?.isRatinged ?? false;
         } else {
           galleryItem = galleryItem?.copyWith(
-            ratingFallBack: galleryItem?.ratingFallBack ?? _oriRatingFallBack,
-            ratingCount: galleryItem?.ratingCount ?? _oriRatingCount,
-            colorRating: _oriColorRating,
+            ratingFallBack:
+                Optional.of(galleryItem?.ratingFallBack ?? _oriRatingFallBack),
+            ratingCount:
+                Optional.of(galleryItem?.ratingCount ?? _oriRatingCount),
+            colorRating: Optional.of(_oriColorRating),
             // isRatinged: _oriIsRatinged,
           );
 
@@ -308,7 +311,7 @@ class GalleryPageController extends GetxController
       } catch (_) {}
 
       galleryItem = galleryItem?.copyWith(
-          imgUrl: galleryItem?.imgUrl ?? galleryItem?.imgUrlL);
+          imgUrl: Optional.of(galleryItem?.imgUrl ?? galleryItem?.imgUrlL));
 
       // 加入历史
       if (galleryItem != null && galleryItem?.gid != null) {
@@ -627,11 +630,11 @@ class GalleryPageController extends GetxController
           }
 
           final GalleryImage _imageCopyWith = _curImages.copyWith(
-            sourceId: _image.sourceId,
-            imageUrl: _image.imageUrl,
-            imageWidth: _image.imageWidth,
-            imageHeight: _image.imageHeight,
-            originImageUrl: _image.originImageUrl,
+            sourceId: Optional.of(_image.sourceId),
+            imageUrl: Optional.of(_image.imageUrl),
+            imageWidth: Optional.of(_image.imageWidth),
+            imageHeight: Optional.of(_image.imageHeight),
+            originImageUrl: Optional.of(_image.originImageUrl),
           );
 
           logger.v('_imageCopyWith ${_imageCopyWith.toJson()}');

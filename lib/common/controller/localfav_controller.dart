@@ -2,6 +2,7 @@ import 'package:fehviewer/common/global.dart';
 import 'package:fehviewer/models/index.dart';
 import 'package:fehviewer/utils/toast.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 import 'base_controller.dart';
 
@@ -47,7 +48,8 @@ class LocalFavController extends ProfileController {
       loacalFavs,
       (List<GalleryItem> value) {
         Global.profile = Global.profile.copyWith(
-          localFav: Global.profile.localFav.copyWith(gallerys: value),
+          localFav:
+              Global.profile.localFav.copyWith(gallerys: Optional.of(value)),
         );
       },
     );

@@ -7,6 +7,7 @@ import 'package:fehviewer/pages/image_view/common.dart';
 import 'package:fehviewer/store/get_store.dart';
 import 'package:fehviewer/utils/logger.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 import 'package:throttling/throttling.dart';
 
 class GalleryCacheController extends GetxController {
@@ -41,7 +42,8 @@ class GalleryCacheController extends GetxController {
             logger.d('both not null');
             if ((remote.time ?? 0) > (_localCache.time ?? 0)) {
               gCacheMap[gid] = _localCache.copyWith(
-                  lastIndex: remote.lastIndex, time: remote.time);
+                  lastIndex: Optional.of(remote.lastIndex),
+                  time: Optional.of(remote.time));
             }
           }
         }
@@ -66,7 +68,8 @@ class GalleryCacheController extends GetxController {
         }
       }
     } else {
-      final _newCache = _ori.copyWith(lastIndex: index, time: _time);
+      final _newCache = _ori.copyWith(
+          lastIndex: Optional.of(index), time: Optional.of(_time));
       gCacheMap[gid] = _newCache;
       if (saveToStore) {
         gStore.saveCache(_newCache);

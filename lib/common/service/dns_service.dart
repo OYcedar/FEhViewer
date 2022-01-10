@@ -4,6 +4,7 @@ import 'package:fehviewer/utils/dns_util.dart';
 import 'package:fehviewer/utils/logger.dart';
 import 'package:fehviewer/utils/toast.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 import '../global.dart';
 import 'base_service.dart';
@@ -83,7 +84,7 @@ class DnsService extends ProfileService {
           addrs: [],
         ));
       } else {
-        _hosts[index] = _hosts[index].copyWith(addr: addr);
+        _hosts[index] = _hosts[index].copyWith(addr: Optional.of(addr));
       }
 
       logger.v('add $host => $addr');
@@ -112,7 +113,7 @@ class DnsService extends ProfileService {
         logger.d('updateDoHCache $host');
         // get new and cache
         final String? _addr = await DnsUtil.doh(host);
-        final _dc = dnsCache.copyWith(lastResolve: nowTime, addr: _addr);
+        final _dc = dnsCache.copyWith(lastResolve: Optional.of(nowTime), addr: Optional.of(_addr));
         dohCache[index] = _dc;
         logger.d('rult ${_dc.toJson()}');
         return _dc;
@@ -141,29 +142,29 @@ class DnsService extends ProfileService {
 
     enableCustomHosts = dnsConfig.enableCustomHosts ?? false;
     everProfile<bool>(_enableCustomHosts, (bool value) {
-      dnsConfig = dnsConfig.copyWith(enableCustomHosts: value);
+      dnsConfig = dnsConfig.copyWith(enableCustomHosts: Optional.of(value));
     });
 
     _hosts(dnsConfig.hosts);
     everProfile<List<DnsCache>>(_hosts, (List<DnsCache> value) {
-      dnsConfig = dnsConfig.copyWith(hosts: value);
+      dnsConfig = dnsConfig.copyWith(hosts: Optional.of(value));
     });
 
     enableDoH = dnsConfig.enableDoH ?? false;
     everProfile<bool>(_enableDoH, (bool value) {
-      dnsConfig = dnsConfig.copyWith(enableDoH: value);
+      dnsConfig = dnsConfig.copyWith(enableDoH: Optional.of(value));
     });
 
     _dohCache(dnsConfig.dohCache);
     everProfile<List<DnsCache>>(_dohCache, (List<DnsCache> value) {
-      dnsConfig = dnsConfig.copyWith(dohCache: value);
+      dnsConfig = dnsConfig.copyWith(dohCache: Optional.of(value));
     });
 
     enableDomainFronting = dnsConfig.enableDomainFronting ?? false;
     ehDioConfig.domainFronting = enableDomainFronting;
     everProfile<bool>(_enableDomainFronting, (bool value) {
       logger.d('everProfile _enableDomainFronting:$value');
-      dnsConfig = dnsConfig.copyWith(enableDomainFronting: value);
+      dnsConfig = dnsConfig.copyWith(enableDomainFronting: Optional.of(value));
       ehDioConfig.domainFronting = value;
     });
   }

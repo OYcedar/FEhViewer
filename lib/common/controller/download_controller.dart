@@ -27,6 +27,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:quiver/core.dart';
 import 'package:sprintf/sprintf.dart' as sp;
 
 import 'cache_controller.dart';
@@ -600,11 +601,11 @@ class DownloadController extends GetxController {
     }
 
     final GalleryImage _imageCopyWith = image.copyWith(
-      sourceId: _image.sourceId,
-      imageUrl: _image.imageUrl,
-      imageWidth: _image.imageWidth,
-      imageHeight: _image.imageHeight,
-      originImageUrl: _image.originImageUrl,
+      sourceId: Optional.of(_image.sourceId),
+      imageUrl: Optional.of(_image.imageUrl),
+      imageWidth: Optional.of(_image.imageWidth),
+      imageHeight: Optional.of(_image.imageHeight),
+      originImageUrl: Optional.of(_image.originImageUrl),
     );
 
     return _imageCopyWith;

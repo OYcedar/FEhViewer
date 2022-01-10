@@ -6,6 +6,7 @@ import 'package:fehviewer/fehviewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:quiver/core.dart';
 
 import '../../fetch_list.dart';
 import 'custom_sublist_controller.dart';
@@ -17,8 +18,8 @@ final CustomProfile profileChinese = CustomProfile(
 /// 控制所有自定义列表
 class CustomTabbarController extends DefaultTabViewController {
   CustomTabConfig? get customTabConfig => Global.profile.customTabConfig;
-  set customTabConfig(CustomTabConfig? val) =>
-      Global.profile = Global.profile.copyWith(customTabConfig: val);
+  set customTabConfig(CustomTabConfig? val) => Global.profile =
+      Global.profile.copyWith(customTabConfig: Optional.of(val));
 
   RxList<CustomProfile> profiles = <CustomProfile>[].obs;
   Map<String, CustomProfile> get profileMap {
@@ -84,15 +85,17 @@ class CustomTabbarController extends DefaultTabViewController {
         ];
 
     ever<List<CustomProfile>>(profiles, (value) {
-      customTabConfig = customTabConfig?.copyWith(profiles: value) ??
-          CustomTabConfig(profiles: value);
+      customTabConfig =
+          customTabConfig?.copyWith(profiles: Optional.of(value)) ??
+              CustomTabConfig(profiles: value);
       Global.saveProfile();
     });
 
     index = customTabConfig?.lastIndex ?? 0;
     ever<int>(_index, (value) {
-      customTabConfig = customTabConfig?.copyWith(lastIndex: value) ??
-          CustomTabConfig(lastIndex: value);
+      customTabConfig =
+          customTabConfig?.copyWith(lastIndex: Optional.of(value)) ??
+              CustomTabConfig(lastIndex: value);
       Global.saveProfile();
     });
 

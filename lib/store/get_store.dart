@@ -5,6 +5,7 @@ import 'package:fehviewer/const/const.dart';
 import 'package:fehviewer/models/index.dart';
 import 'package:fehviewer/utils/logger.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:quiver/core.dart';
 
 class GStore {
   static GetStorage _getStore([String container = 'GetStorage']) {
@@ -124,10 +125,10 @@ class GStore {
       advanceSearch: _profileObj.advanceSearch,
       dnsConfig: _profileObj.dnsConfig,
       downloadConfig: _profileObj.downloadConfig,
-      webdav: _profileObj.webdav,
+      webdav: Optional.of(_profileObj.webdav),
       autoLock: _profileObj.autoLock,
-      favConfig: _profileObj.favConfig,
-      customTabConfig: _profileObj.customTabConfig,
+      favConfig: Optional.of(_profileObj.favConfig),
+      customTabConfig: Optional.of(_profileObj.customTabConfig),
     );
     return _profile;
   }

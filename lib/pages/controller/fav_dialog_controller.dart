@@ -14,6 +14,7 @@ import 'package:fehviewer/utils/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 import 'favorite_sel_controller.dart';
 
@@ -91,8 +92,8 @@ class FavDialogController extends GetxController {
                   onEditingComplete: () {
                     // 返回数据
                     Get.back(
-                        result: favList[_favindex]
-                            .copyWith(note: _favnoteController.text));
+                        result: favList[_favindex].copyWith(
+                            note: Optional.of(_favnoteController.text)));
                   },
                 )
               ],
@@ -117,7 +118,7 @@ class FavDialogController extends GetxController {
                 // 返回数据
                 Get.back(
                     result: favList[_favindex]
-                        .copyWith(note: _favnoteController.text));
+                        .copyWith(note: Optional.of(_favnoteController.text)));
               },
             ),
           ],
@@ -137,7 +138,9 @@ class FavDialogController extends GetxController {
               totNum: fav.totNum,
               onTap: () {
                 // 返回数据
-                Get.back(result: fav.copyWith(note: _favnoteController.text));
+                Get.back(
+                    result: fav.copyWith(
+                        note: Optional.of(_favnoteController.text)));
               },
             ))).toList();
 

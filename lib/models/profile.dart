@@ -1,4 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'eh_config.dart';
 import 'user.dart';
 import 'local_fav.dart';
@@ -12,7 +15,7 @@ import 'custom_tab_config.dart';
 
 @immutable
 class Profile {
-  
+
   const Profile({
     required this.ehConfig,
     required this.user,
@@ -36,7 +39,7 @@ class Profile {
   final String lastLogin;
   final String locale;
   final String theme;
-  final List<dynamic> searchText;
+  final List<String> searchText;
   final LocalFav localFav;
   final bool enableAdvanceSearch;
   final AdvanceSearch advanceSearch;
@@ -53,7 +56,7 @@ class Profile {
     lastLogin: json['lastLogin'] as String,
     locale: json['locale'] as String,
     theme: json['theme'] as String,
-    searchText: (json['searchText'] as List? ?? []).map((e) => e as dynamic).toList(),
+    searchText: (json['searchText'] as List? ?? []).map((e) => e as String).toList(),
     localFav: LocalFav.fromJson(json['localFav'] as Map<String, dynamic>),
     enableAdvanceSearch: json['enableAdvanceSearch'] as bool,
     advanceSearch: AdvanceSearch.fromJson(json['advanceSearch'] as Map<String, dynamic>),
@@ -101,23 +104,23 @@ class Profile {
     customTabConfig: customTabConfig?.clone()
   );
 
-    
+
   Profile copyWith({
     EhConfig? ehConfig,
     User? user,
     String? lastLogin,
     String? locale,
     String? theme,
-    List<dynamic>? searchText,
+    List<String>? searchText,
     LocalFav? localFav,
     bool? enableAdvanceSearch,
     AdvanceSearch? advanceSearch,
     DnsConfig? dnsConfig,
     DownloadConfig? downloadConfig,
     AutoLock? autoLock,
-    WebdavProfile? webdav,
-    FavConfig? favConfig,
-    CustomTabConfig? customTabConfig
+    Optional<WebdavProfile?>? webdav,
+    Optional<FavConfig?>? favConfig,
+    Optional<CustomTabConfig?>? customTabConfig
   }) => Profile(
     ehConfig: ehConfig ?? this.ehConfig,
     user: user ?? this.user,
@@ -131,13 +134,13 @@ class Profile {
     dnsConfig: dnsConfig ?? this.dnsConfig,
     downloadConfig: downloadConfig ?? this.downloadConfig,
     autoLock: autoLock ?? this.autoLock,
-    webdav: webdav ?? this.webdav,
-    favConfig: favConfig ?? this.favConfig,
-    customTabConfig: customTabConfig ?? this.customTabConfig,
-  );  
+    webdav: checkOptional(webdav, this.webdav),
+    favConfig: checkOptional(favConfig, this.favConfig),
+    customTabConfig: checkOptional(customTabConfig, this.customTabConfig),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is Profile && ehConfig == other.ehConfig && user == other.user && lastLogin == other.lastLogin && locale == other.locale && theme == other.theme && searchText == other.searchText && localFav == other.localFav && enableAdvanceSearch == other.enableAdvanceSearch && advanceSearch == other.advanceSearch && dnsConfig == other.dnsConfig && downloadConfig == other.downloadConfig && autoLock == other.autoLock && webdav == other.webdav && favConfig == other.favConfig && customTabConfig == other.customTabConfig;
 
   @override

@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'eh_profile.dart';
 
 @immutable
 class Uconfig {
-  
+
   const Uconfig({
     required this.profilelist,
     required this.profileSelected,
@@ -42,23 +45,23 @@ class Uconfig {
     thumbnailRows: thumbnailRows
   );
 
-    
+
   Uconfig copyWith({
     List<EhProfile>? profilelist,
     String? profileSelected,
-    int? nameDisplay,
-    int? thumbnailSize,
-    int? thumbnailRows
+    Optional<int?>? nameDisplay,
+    Optional<int?>? thumbnailSize,
+    Optional<int?>? thumbnailRows
   }) => Uconfig(
     profilelist: profilelist ?? this.profilelist,
     profileSelected: profileSelected ?? this.profileSelected,
-    nameDisplay: nameDisplay ?? this.nameDisplay,
-    thumbnailSize: thumbnailSize ?? this.thumbnailSize,
-    thumbnailRows: thumbnailRows ?? this.thumbnailRows,
-  );  
+    nameDisplay: checkOptional(nameDisplay, this.nameDisplay),
+    thumbnailSize: checkOptional(thumbnailSize, this.thumbnailSize),
+    thumbnailRows: checkOptional(thumbnailRows, this.thumbnailRows),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is Uconfig && profilelist == other.profilelist && profileSelected == other.profileSelected && nameDisplay == other.nameDisplay && thumbnailSize == other.thumbnailSize && thumbnailRows == other.thumbnailRows;
 
   @override

@@ -4,7 +4,7 @@
   "lastLogin": "",
   "locale": "",
   "theme": "",
-  "searchText": [],
+  "searchText": [""],
   "localFav": "$local_fav",
   "enableAdvanceSearch": false,
   "advanceSearch": "$advance_search",

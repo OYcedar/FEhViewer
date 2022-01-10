@@ -11,6 +11,7 @@ import 'package:fehviewer/pages/tab/view/tab_base.dart';
 import 'package:fehviewer/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 import 'package:throttling/throttling.dart';
 
 class HistoryController extends GetxController {
@@ -45,9 +46,9 @@ class HistoryController extends GetxController {
 
     final int nowTime = DateTime.now().millisecondsSinceEpoch;
     final _item = galleryItem.copyWith(
-      lastViewTime: updateTime ? nowTime : null,
-      galleryImages: [],
-      galleryComment: [],
+      lastViewTime: Optional.of(updateTime ? nowTime : null),
+      galleryImages: Optional.of([]),
+      galleryComment: Optional.of([]),
     );
 
     final _eDelFlg =

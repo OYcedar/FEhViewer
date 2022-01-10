@@ -16,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:orientation/orientation.dart';
 import 'package:path/path.dart' as path;
 import 'package:photo_view/photo_view.dart';
+import 'package:quiver/core.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:throttling/throttling.dart';
@@ -435,7 +436,7 @@ class ViewExtController extends GetxController {
     }
     _galleryPageController.uptImageBySer(
       ser: itemSer,
-      image: _currentImage.copyWith(imageUrl: ''),
+      image: _currentImage.copyWith(imageUrl: Optional.of('')),
     );
 
     // 换源重载

@@ -7,6 +7,7 @@ import 'package:fehviewer/utils/logger.dart';
 import 'package:fehviewer/utils/utility.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
+import 'package:quiver/core.dart';
 
 class GalleryFavParser {
   /// 收藏操作
@@ -78,8 +79,8 @@ class GalleryFavParser {
       if (gid != null && gid.isNotEmpty && token != null && token.isNotEmpty) {
         // Global.profile.user.favcat = await gallerySelfavcat(gid, token);
         final favcat = await gallerySelfavcat(gid, token);
-        Global.profile = Global.profile
-            .copyWith(user: Global.profile.user.copyWith(favcat: favcat));
+        Global.profile = Global.profile.copyWith(
+            user: Global.profile.user.copyWith(favcat: Optional.of(favcat)));
       }
     }
 
@@ -90,7 +91,7 @@ class GalleryFavParser {
   static Future<void> saveFavcatToProfile(String gid, String token) async {
     // Global.profile.user.favcat = await gallerySelfavcat(gid, token);
     final favcat = await gallerySelfavcat(gid, token);
-    Global.profile = Global.profile
-        .copyWith(user: Global.profile.user.copyWith(favcat: favcat));
+    Global.profile = Global.profile.copyWith(
+        user: Global.profile.user.copyWith(favcat: Optional.of(favcat)));
   }
 }

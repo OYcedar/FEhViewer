@@ -24,6 +24,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
+import 'package:quiver/core.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:share/share.dart';
 
@@ -118,7 +119,7 @@ class DownloadViewController extends GetxController {
       _archiverDownloadController.archiverTaskMap[archiverTasks[index].tag!] =
           _archiverDownloadController
               .archiverTaskMap[archiverTasks[index].tag!]!
-              .copyWith(taskId: _newTaskId);
+              .copyWith(taskId: Optional.of(_newTaskId));
     }
   }
 
@@ -141,7 +142,7 @@ class DownloadViewController extends GetxController {
       _archiverDownloadController.archiverTaskMap[archiverTasks[index].tag!] =
           _archiverDownloadController
               .archiverTaskMap[archiverTasks[index].tag!]!
-              .copyWith(taskId: _newTaskId);
+              .copyWith(taskId: Optional.of(_newTaskId));
     }
   }
 

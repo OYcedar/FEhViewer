@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class AdvanceSearch {
-  
+
   const AdvanceSearch({
     required this.searchGalleryName,
     required this.searchGalleryTags,
@@ -112,7 +115,7 @@ class AdvanceSearch {
     favSearchNote: favSearchNote
   );
 
-    
+
   AdvanceSearch copyWith({
     bool? searchGalleryName,
     bool? searchGalleryTags,
@@ -153,10 +156,10 @@ class AdvanceSearch {
     favSearchName: favSearchName ?? this.favSearchName,
     favSearchTags: favSearchTags ?? this.favSearchTags,
     favSearchNote: favSearchNote ?? this.favSearchNote,
-  );  
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is AdvanceSearch && searchGalleryName == other.searchGalleryName && searchGalleryTags == other.searchGalleryTags && searchGalleryDesc == other.searchGalleryDesc && searchToreenFilenames == other.searchToreenFilenames && onlyShowWhithTorrents == other.onlyShowWhithTorrents && searchLowPowerTags == other.searchLowPowerTags && searchDownvotedTags == other.searchDownvotedTags && searchExpunged == other.searchExpunged && searchWithminRating == other.searchWithminRating && minRating == other.minRating && searchBetweenpage == other.searchBetweenpage && startPage == other.startPage && endPage == other.endPage && disableDFLanguage == other.disableDFLanguage && disableDFUploader == other.disableDFUploader && disableDFTags == other.disableDFTags && favSearchName == other.favSearchName && favSearchTags == other.favSearchTags && favSearchNote == other.favSearchNote;
 
   @override

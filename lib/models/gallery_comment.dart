@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'gallery_comment_span.dart';
 
 @immutable
 class GalleryComment {
-  
+
   const GalleryComment({
     required this.name,
     required this.time,
@@ -62,31 +65,31 @@ class GalleryComment {
     showTranslate: showTranslate
   );
 
-    
+
   GalleryComment copyWith({
     String? name,
     String? time,
     List<GalleryCommentSpan>? span,
     String? score,
-    int? vote,
-    String? id,
-    bool? canEdit,
-    bool? canVote,
-    bool? showTranslate
+    Optional<int?>? vote,
+    Optional<String?>? id,
+    Optional<bool?>? canEdit,
+    Optional<bool?>? canVote,
+    Optional<bool?>? showTranslate
   }) => GalleryComment(
     name: name ?? this.name,
     time: time ?? this.time,
     span: span ?? this.span,
     score: score ?? this.score,
-    vote: vote ?? this.vote,
-    id: id ?? this.id,
-    canEdit: canEdit ?? this.canEdit,
-    canVote: canVote ?? this.canVote,
-    showTranslate: showTranslate ?? this.showTranslate,
-  );  
+    vote: checkOptional(vote, this.vote),
+    id: checkOptional(id, this.id),
+    canEdit: checkOptional(canEdit, this.canEdit),
+    canVote: checkOptional(canVote, this.canVote),
+    showTranslate: checkOptional(showTranslate, this.showTranslate),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is GalleryComment && name == other.name && time == other.time && span == other.span && score == other.score && vote == other.vote && id == other.id && canEdit == other.canEdit && canVote == other.canVote && showTranslate == other.showTranslate;
 
   @override

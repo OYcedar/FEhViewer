@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'favcat.dart';
 
 @immutable
 class User {
-  
+
   const User({
     this.username,
     this.nickName,
@@ -62,31 +65,31 @@ class User {
     favcat: favcat?.map((e) => e.clone()).toList()
   );
 
-    
+
   User copyWith({
-    String? username,
-    String? nickName,
-    String? memberId,
-    String? passHash,
-    String? igneous,
-    String? hathPerks,
-    String? sk,
-    String? avatarUrl,
-    List<Favcat>? favcat
+    Optional<String?>? username,
+    Optional<String?>? nickName,
+    Optional<String?>? memberId,
+    Optional<String?>? passHash,
+    Optional<String?>? igneous,
+    Optional<String?>? hathPerks,
+    Optional<String?>? sk,
+    Optional<String?>? avatarUrl,
+    Optional<List<Favcat>?>? favcat
   }) => User(
-    username: username ?? this.username,
-    nickName: nickName ?? this.nickName,
-    memberId: memberId ?? this.memberId,
-    passHash: passHash ?? this.passHash,
-    igneous: igneous ?? this.igneous,
-    hathPerks: hathPerks ?? this.hathPerks,
-    sk: sk ?? this.sk,
-    avatarUrl: avatarUrl ?? this.avatarUrl,
-    favcat: favcat ?? this.favcat,
-  );  
+    username: checkOptional(username, this.username),
+    nickName: checkOptional(nickName, this.nickName),
+    memberId: checkOptional(memberId, this.memberId),
+    passHash: checkOptional(passHash, this.passHash),
+    igneous: checkOptional(igneous, this.igneous),
+    hathPerks: checkOptional(hathPerks, this.hathPerks),
+    sk: checkOptional(sk, this.sk),
+    avatarUrl: checkOptional(avatarUrl, this.avatarUrl),
+    favcat: checkOptional(favcat, this.favcat),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is User && username == other.username && nickName == other.nickName && memberId == other.memberId && passHash == other.passHash && igneous == other.igneous && hathPerks == other.hathPerks && sk == other.sk && avatarUrl == other.avatarUrl && favcat == other.favcat;
 
   @override

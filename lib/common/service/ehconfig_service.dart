@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:quiver/core.dart';
 
 import 'locale_service.dart';
 
@@ -54,12 +55,12 @@ class EhConfigService extends ProfileService {
 
   String? get lastShowFavcat => ehConfig.lastShowFavcat;
   set lastShowFavcat(String? value) {
-    ehConfig = ehConfig.copyWith(lastShowFavcat: value);
+    ehConfig = ehConfig.copyWith(lastShowFavcat: Optional.of(value));
   }
 
   String? get lastShowFavTitle => ehConfig.lastShowFavTitle;
   set lastShowFavTitle(String? value) {
-    ehConfig = ehConfig.copyWith(lastShowFavTitle: value);
+    ehConfig = ehConfig.copyWith(lastShowFavTitle: Optional.of(value));
     Global.saveProfile();
   }
 
@@ -156,13 +157,15 @@ class EhConfigService extends ProfileService {
     /// 预载图片数量
     preloadImage.value = downloadConfig.preloadImage ?? 5;
     everProfile<int>(preloadImage, (value) {
-      downloadConfig = downloadConfig.copyWith(preloadImage: value);
+      downloadConfig =
+          downloadConfig.copyWith(preloadImage: Optional.of(value));
     });
 
     // downloadLocatino
     downloadLocatino = downloadConfig.downloadLocation ?? '';
     everProfile<String>(_downloadLocatino, (value) {
-      downloadConfig = downloadConfig.copyWith(downloadLocation: value);
+      downloadConfig =
+          downloadConfig.copyWith(downloadLocation: Optional.of(value));
     });
 
     multiDownload = (downloadConfig.multiDownload != null &&
@@ -170,12 +173,14 @@ class EhConfigService extends ProfileService {
         ? downloadConfig.multiDownload!
         : 3;
     everProfile<int>(_multiDownload, (value) {
-      downloadConfig = downloadConfig.copyWith(multiDownload: value);
+      downloadConfig =
+          downloadConfig.copyWith(multiDownload: Optional.of(value));
     });
 
     allowMediaScan = downloadConfig.allowMediaScan ?? false;
     everProfile<bool>(_allowMediaScan, (value) {
-      downloadConfig = downloadConfig.copyWith(allowMediaScan: value);
+      downloadConfig =
+          downloadConfig.copyWith(allowMediaScan: Optional.of(value));
     });
 
     /// 阅读方向
@@ -190,7 +195,7 @@ class EhConfigService extends ProfileService {
     isSafeMode.value = ehConfig.safeMode ?? false;
     everProfile(isSafeMode, (value) {
       // ehConfig.safeMode = value;
-      ehConfig = ehConfig.copyWith(safeMode: value as bool);
+      ehConfig = ehConfig.copyWith(safeMode: Optional.of(value as bool));
       Get.find<TabHomeController>().resetIndex();
     });
 
@@ -201,19 +206,23 @@ class EhConfigService extends ProfileService {
     });
 
     isTagTranslat = ehConfig.tagTranslat ?? false;
-    everProfile(_isTagTranslat,
-        (value) => ehConfig = ehConfig.copyWith(tagTranslat: value as bool));
+    everProfile(
+        _isTagTranslat,
+        (value) => ehConfig =
+            ehConfig.copyWith(tagTranslat: Optional.of(value as bool)));
 
     isGalleryImgBlur.value = ehConfig.galleryImgBlur ?? false;
-    everProfile(isGalleryImgBlur,
-        (value) => ehConfig = ehConfig.copyWith(galleryImgBlur: value as bool));
+    everProfile(
+        isGalleryImgBlur,
+        (value) => ehConfig =
+            ehConfig.copyWith(galleryImgBlur: Optional.of(value as bool)));
 
     // 站点切换事件
     isSiteEx.value = ehConfig.siteEx ?? false;
     ehDioConfig = isSiteEx.value ? exDioConfig : ehDioConfig;
     everProfile(isSiteEx, (value) {
       logger.d('everProfile isSiteEx');
-      ehConfig = ehConfig.copyWith(siteEx: value as bool);
+      ehConfig = ehConfig.copyWith(siteEx: Optional.of(value as bool));
       // ehDioConfig
       //   ..baseUrl = value ? EHConst.EX_BASE_URL : EHConst.EH_BASE_URL
       //   ..maxConnectionsPerHost = value ? 2 : null;
@@ -230,8 +239,10 @@ class EhConfigService extends ProfileService {
     });
 
     isFavLongTap.value = ehConfig.favLongTap ?? false;
-    everProfile(isFavLongTap,
-        (value) => ehConfig = ehConfig.copyWith(favLongTap: value as bool));
+    everProfile(
+        isFavLongTap,
+        (value) => ehConfig =
+            ehConfig.copyWith(favLongTap: Optional.of(value as bool)));
 
     catFilter.value = ehConfig.catFilter;
     everProfile(catFilter,
@@ -248,8 +259,10 @@ class EhConfigService extends ProfileService {
     //     (value) => ehConfig = ehConfig.copyWith(maxHistory: value as int));
 
     isSearchBarComp.value = ehConfig.searchBarComp ?? false;
-    everProfile(isSearchBarComp,
-        (value) => ehConfig = ehConfig.copyWith(searchBarComp: value as bool));
+    everProfile(
+        isSearchBarComp,
+        (value) => ehConfig =
+            ehConfig.copyWith(searchBarComp: Optional.of(value as bool)));
 
     favoriteOrder.value = EnumToString.fromString(
             FavoriteOrder.values, ehConfig.favoritesOrder) ??
@@ -260,28 +273,38 @@ class EhConfigService extends ProfileService {
     tagTranslatVer.value = ehConfig.tagTranslatVer ?? '';
     everProfile(
         tagTranslatVer,
-        (value) =>
-            ehConfig = ehConfig.copyWith(tagTranslatVer: value as String));
+        (value) => ehConfig =
+            ehConfig.copyWith(tagTranslatVer: Optional.of(value as String)));
 
     lastFavcat.value = ehConfig.lastFavcat ?? '';
-    everProfile(lastFavcat,
-        (value) => ehConfig = ehConfig.copyWith(lastFavcat: value as String));
+    everProfile(
+        lastFavcat,
+        (value) => ehConfig =
+            ehConfig.copyWith(lastFavcat: Optional.of(value as String)));
 
     isFavPicker.value = ehConfig.favPicker ?? false;
-    everProfile(isFavPicker,
-        (value) => ehConfig = ehConfig.copyWith(favPicker: value as bool));
+    everProfile(
+        isFavPicker,
+        (value) => ehConfig =
+            ehConfig.copyWith(favPicker: Optional.of(value as bool)));
 
     isPureDarkTheme.value = ehConfig.pureDarkTheme ?? false;
-    everProfile<bool>(isPureDarkTheme,
-        (bool value) => ehConfig = ehConfig.copyWith(pureDarkTheme: value));
+    everProfile<bool>(
+        isPureDarkTheme,
+        (bool value) =>
+            ehConfig = ehConfig.copyWith(pureDarkTheme: Optional.of(value)));
 
     isClipboardLink.value = ehConfig.clipboardLink ?? false;
-    everProfile<bool>(isClipboardLink,
-        (bool value) => ehConfig = ehConfig.copyWith(clipboardLink: value));
+    everProfile<bool>(
+        isClipboardLink,
+        (bool value) =>
+            ehConfig = ehConfig.copyWith(clipboardLink: Optional.of(value)));
 
     commentTrans.value = ehConfig.commentTrans ?? false;
-    everProfile<bool>(commentTrans,
-        (bool value) => ehConfig = ehConfig.copyWith(commentTrans: value));
+    everProfile<bool>(
+        commentTrans,
+        (bool value) =>
+            ehConfig = ehConfig.copyWith(commentTrans: Optional.of(value)));
 
     // blurredInRecentTasks
     blurredInRecentTasks.value = storageUtil.getBool(BLURRED_IN_RECENT_TASK);
@@ -290,37 +313,47 @@ class EhConfigService extends ProfileService {
 
     // autoLockTimeOut
     autoLockTimeOut.value = ehConfig.autoLockTimeOut ?? -1;
-    everProfile<int>(autoLockTimeOut,
-        (int value) => ehConfig = ehConfig.copyWith(autoLockTimeOut: value));
+    everProfile<int>(
+        autoLockTimeOut,
+        (int value) =>
+            ehConfig = ehConfig.copyWith(autoLockTimeOut: Optional.of(value)));
 
     // showPageInterval
     showPageInterval.value = ehConfig.showPageInterval ?? false;
-    everProfile<bool>(showPageInterval,
-        (bool value) => ehConfig = ehConfig.copyWith(showPageInterval: value));
+    everProfile<bool>(
+        showPageInterval,
+        (bool value) =>
+            ehConfig = ehConfig.copyWith(showPageInterval: Optional.of(value)));
 
     // orientation
     orientation.value = EnumToString.fromString(
             ReadOrientation.values, ehConfig.favoritesOrder) ??
         ReadOrientation.system;
-    everFromEunm(orientation,
-        (String value) => ehConfig = ehConfig.copyWith(orientation: value));
+    everFromEunm(
+        orientation,
+        (String value) =>
+            ehConfig = ehConfig.copyWith(orientation: Optional.of(value)));
 
     // vibrate
     vibrate.value = ehConfig.vibrate ?? true;
     everProfile<bool>(
-        vibrate, (bool value) => ehConfig = ehConfig.copyWith(vibrate: value));
+        vibrate,
+        (bool value) =>
+            ehConfig = ehConfig.copyWith(vibrate: Optional.of(value)));
 
     // tagIntroImgLv
     tagIntroImgLv.value = EnumToString.fromString(
             TagIntroImgLv.values, ehConfig.tagIntroImgLv ?? 'nonh') ??
         TagIntroImgLv.nonh;
-    everFromEunm(tagIntroImgLv,
-        (String value) => ehConfig = ehConfig.copyWith(tagIntroImgLv: value));
+    everFromEunm(
+        tagIntroImgLv,
+        (String value) =>
+            ehConfig = ehConfig.copyWith(tagIntroImgLv: Optional.of(value)));
 
     debugCount = ehConfig.debugCount ?? 3;
     if (!kDebugMode) {
       debugCount -= 1;
-      ehConfig = ehConfig.copyWith(debugCount: debugCount);
+      ehConfig = ehConfig.copyWith(debugCount: Optional.of(debugCount));
     }
     if (debugCount > 0) {
       debugMode = ehConfig.debugMode ?? false;
@@ -329,78 +362,90 @@ class EhConfigService extends ProfileService {
     }
     Global.saveProfile();
     everProfile<bool>(_debugMode, (bool value) {
-      ehConfig = ehConfig.copyWith(debugMode: value, debugCount: 3);
+      ehConfig = ehConfig.copyWith(
+          debugMode: Optional.of(value), debugCount: Optional.of(3));
       if (value) {
         Logger.level = Level.debug;
         logger.v('Level.debug');
-        ehConfig = ehConfig.copyWith(debugCount: 3);
+        ehConfig = ehConfig.copyWith(debugCount: Optional.of(3));
       } else {
         Logger.level = Level.error;
-        ehConfig = ehConfig.copyWith(debugCount: 0);
+        ehConfig = ehConfig.copyWith(debugCount: Optional.of(0));
       }
       resetLogLevel();
     });
 
     // 自动翻页 _autoRead
     autoRead = ehConfig.autoRead ?? false;
-    everProfile<bool>(_autoRead,
-        (bool value) => ehConfig = ehConfig.copyWith(autoRead: value));
+    everProfile<bool>(
+        _autoRead,
+        (bool value) =>
+            ehConfig = ehConfig.copyWith(autoRead: Optional.of(value)));
 
     // 翻页时间间隔 _turnPageInv
     turnPageInv = ehConfig.turnPageInv ?? 3000;
-    everProfile<int>(_turnPageInv,
-        (int value) => ehConfig = ehConfig.copyWith(turnPageInv: value));
+    everProfile<int>(
+        _turnPageInv,
+        (int value) =>
+            ehConfig = ehConfig.copyWith(turnPageInv: Optional.of(value)));
 
     _toplist.value =
         EnumToString.fromString(ToplistType.values, ehConfig.toplist ?? '') ??
             ToplistType.yesterday;
-    everFromEunm(_toplist,
-        (String value) => ehConfig = ehConfig.copyWith(toplist: value));
+    everFromEunm(
+        _toplist,
+        (String value) =>
+            ehConfig = ehConfig.copyWith(toplist: Optional.of(value)));
 
     tabletLayout = ehConfig.tabletLayout ?? true;
-    everProfile<bool>(_tabletLayout,
-        (bool value) => ehConfig = ehConfig.copyWith(tabletLayout: value));
+    everProfile<bool>(
+        _tabletLayout,
+        (bool value) =>
+            ehConfig = ehConfig.copyWith(tabletLayout: Optional.of(value)));
 
     enableTagTranslateCDN = ehConfig.enableTagTranslateCDN ?? false;
     everProfile<bool>(
         _enableTagTranslateCDN,
-        (bool value) =>
-            ehConfig = ehConfig.copyWith(enableTagTranslateCDN: value));
+        (bool value) => ehConfig =
+            ehConfig.copyWith(enableTagTranslateCDN: Optional.of(value)));
 
     // _autoSelectProfile
     autoSelectProfile = ehConfig.autoSelectProfile ?? true;
-    everProfile<bool>(_autoSelectProfile,
-        (bool value) => ehConfig = ehConfig.copyWith(autoSelectProfile: value));
+    everProfile<bool>(
+        _autoSelectProfile,
+        (bool value) => ehConfig =
+            ehConfig.copyWith(autoSelectProfile: Optional.of(value)));
 
     // tapToTurnPageAnimations
     tapToTurnPageAnimations = ehConfig.tapToTurnPageAnimations ?? true;
     everProfile<bool>(
         _tapToTurnPageAnimations,
-        (bool value) =>
-            ehConfig = ehConfig.copyWith(tapToTurnPageAnimations: value));
+        (bool value) => ehConfig =
+            ehConfig.copyWith(tapToTurnPageAnimations: Optional.of(value)));
 
     // downloadOrigImage
     downloadOrigImage = downloadConfig.downloadOrigImage ?? false;
     everProfile<bool>(_downloadOrigImage, (value) {
-      downloadConfig = downloadConfig.copyWith(downloadOrigImage: value);
+      downloadConfig =
+          downloadConfig.copyWith(downloadOrigImage: Optional.of(value));
     });
 
     // _selectProfile
     selectProfile = ehConfig.selectProfile ?? '';
     everProfile<String>(_selectProfile, (value) {
-      ehConfig = ehConfig.copyWith(selectProfile: value);
+      ehConfig = ehConfig.copyWith(selectProfile: Optional.of(value));
     });
 
     // _linkRedirect
     linkRedirect = ehConfig.linkRedirect ?? false;
     everProfile<bool>(_linkRedirect, (value) {
-      ehConfig = ehConfig.copyWith(linkRedirect: value);
+      ehConfig = ehConfig.copyWith(linkRedirect: Optional.of(value));
     });
 
     // fixedHeightOfListItems
     fixedHeightOfListItems = ehConfig.fixedHeightOfListItems ?? true;
     everProfile<bool>(_fixedHeightOfListItems, (value) {
-      ehConfig = ehConfig.copyWith(fixedHeightOfListItems: value);
+      ehConfig = ehConfig.copyWith(fixedHeightOfListItems: Optional.of(value));
     });
   }
 

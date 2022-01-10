@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class GalleryCommentSpan {
-  
+
   const GalleryCommentSpan({
     this.type,
     this.style,
@@ -47,25 +50,25 @@ class GalleryCommentSpan {
     imageUrl: imageUrl
   );
 
-    
+
   GalleryCommentSpan copyWith({
-    String? type,
-    String? style,
-    String? text,
-    String? translate,
-    String? href,
-    String? imageUrl
+    Optional<String?>? type,
+    Optional<String?>? style,
+    Optional<String?>? text,
+    Optional<String?>? translate,
+    Optional<String?>? href,
+    Optional<String?>? imageUrl
   }) => GalleryCommentSpan(
-    type: type ?? this.type,
-    style: style ?? this.style,
-    text: text ?? this.text,
-    translate: translate ?? this.translate,
-    href: href ?? this.href,
-    imageUrl: imageUrl ?? this.imageUrl,
-  );  
+    type: checkOptional(type, this.type),
+    style: checkOptional(style, this.style),
+    text: checkOptional(text, this.text),
+    translate: checkOptional(translate, this.translate),
+    href: checkOptional(href, this.href),
+    imageUrl: checkOptional(imageUrl, this.imageUrl),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is GalleryCommentSpan && type == other.type && style == other.style && text == other.text && translate == other.translate && href == other.href && imageUrl == other.imageUrl;
 
   @override

@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'custom_profile.dart';
 
 @immutable
 class CustomTabConfig {
-  
+
   const CustomTabConfig({
     this.profiles,
     this.lastIndex,
@@ -27,17 +30,17 @@ class CustomTabConfig {
     lastIndex: lastIndex
   );
 
-    
+
   CustomTabConfig copyWith({
-    List<CustomProfile>? profiles,
-    int? lastIndex
+    Optional<List<CustomProfile>?>? profiles,
+    Optional<int?>? lastIndex
   }) => CustomTabConfig(
-    profiles: profiles ?? this.profiles,
-    lastIndex: lastIndex ?? this.lastIndex,
-  );  
+    profiles: checkOptional(profiles, this.profiles),
+    lastIndex: checkOptional(lastIndex, this.lastIndex),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is CustomTabConfig && profiles == other.profiles && lastIndex == other.lastIndex;
 
   @override

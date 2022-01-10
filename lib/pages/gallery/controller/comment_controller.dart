@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:learning_language/learning_language.dart';
+import 'package:quiver/core.dart';
 
 import 'gallery_page_controller.dart';
 
@@ -150,12 +151,13 @@ class CommentController extends GetxController
           }
         }
 
-        spans[i] = spans[i].copyWith(translate: translate);
+        spans[i] = spans[i].copyWith(translate: Optional.of(translate));
       }
     }
 
     state![_commentIndex!] = state![_commentIndex].copyWith(
-      showTranslate: !(state![_commentIndex].showTranslate ?? false),
+      showTranslate:
+          Optional.of(!(state![_commentIndex].showTranslate ?? false)),
     );
     // update([_id]);
     update();
@@ -171,7 +173,8 @@ class CommentController extends GetxController
     // state?.firstWhere((element) => element.id == _id.toString()).vote = 1;
     final int? _commentIndex =
         state?.indexWhere((element) => element.id == _id.toString());
-    state![_commentIndex!] = state![_commentIndex].copyWith(vote: 1);
+    state![_commentIndex!] =
+        state![_commentIndex].copyWith(vote: Optional.of(1));
 
     update([_id]);
     final CommitVoteRes rult = await Api.commitVote(
@@ -194,7 +197,8 @@ class CommentController extends GetxController
     // state.firstWhere((element) => element.id == _id.toString()).vote = -1;
     final int? _commentIndex =
         state?.indexWhere((element) => element.id == _id.toString());
-    state![_commentIndex!] = state![_commentIndex].copyWith(vote: -1);
+    state![_commentIndex!] =
+        state![_commentIndex].copyWith(vote: Optional.of(-1));
     update([_id]);
     final CommitVoteRes rult = await Api.commitVote(
       apikey: _item?.apikey ?? '',
@@ -216,8 +220,8 @@ class CommentController extends GetxController
 
     final int? _commentIndex = state?.indexWhere(
         (GalleryComment element) => element.id == rult.commentId.toString());
-    state![_commentIndex!] = state![_commentIndex]
-        .copyWith(vote: rult.commentVote, score: '${rult.commentScore}');
+    state![_commentIndex!] = state![_commentIndex].copyWith(
+        vote: Optional.of(rult.commentVote), score: '${rult.commentScore}');
 
     update();
     logger.v('update CommentController id ${rult.commentId}');

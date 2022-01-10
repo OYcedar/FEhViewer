@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'history_index_gid.dart';
 
 @immutable
 class HistoryIndex {
-  
+
   const HistoryIndex({
     this.time,
     this.gids,
@@ -27,17 +30,17 @@ class HistoryIndex {
     gids: gids?.map((e) => e.clone()).toList()
   );
 
-    
+
   HistoryIndex copyWith({
-    int? time,
-    List<HistoryIndexGid>? gids
+    Optional<int?>? time,
+    Optional<List<HistoryIndexGid>?>? gids
   }) => HistoryIndex(
-    time: time ?? this.time,
-    gids: gids ?? this.gids,
-  );  
+    time: checkOptional(time, this.time),
+    gids: checkOptional(gids, this.gids),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is HistoryIndex && time == other.time && gids == other.gids;
 
   @override

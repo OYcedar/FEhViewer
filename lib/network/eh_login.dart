@@ -10,6 +10,7 @@ import 'package:fehviewer/utils/dio_util.dart';
 import 'package:get/get.dart' hide Response, FormData;
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
+import 'package:quiver/core.dart';
 
 class EhUserManager {
   factory EhUserManager() => _instance;
@@ -118,13 +119,13 @@ class EhUserManager {
     logger.d('${_cookiesEx.map((e) => '$e').join('\n')} ');
 
     final User user = kDefUser.copyWith(
-      avatarUrl: _avatarUrl,
-      username: nickame,
-      memberId: cookieMapEx['ipb_member_id'],
-      passHash: cookieMapEx['ipb_pass_hash'],
-      igneous: cookieMapEx['igneous'],
-      hathPerks: cookieMapEx['hath_perks'],
-      sk: cookieMapEx['sk'],
+      avatarUrl: Optional.of(_avatarUrl),
+      username: Optional.of(nickame),
+      memberId: Optional.of(cookieMapEx['ipb_member_id']),
+      passHash: Optional.of(cookieMapEx['ipb_pass_hash']),
+      igneous: Optional.of(cookieMapEx['igneous']),
+      hathPerks: Optional.of(cookieMapEx['hath_perks']),
+      sk: Optional.of(cookieMapEx['sk']),
     );
 
     return user;
@@ -182,13 +183,13 @@ class EhUserManager {
     logger.d('${_cookiesEx.map((e) => '$e').join('\n')} ');
 
     final User user = kDefUser.copyWith(
-      avatarUrl: userinfo.avatarUrl,
-      username: userinfo.username,
-      memberId: cookieMapEx['ipb_member_id'],
-      passHash: cookieMapEx['ipb_pass_hash'],
-      igneous: cookieMapEx['igneous'],
-      hathPerks: cookieMapEx['hath_perks'],
-      sk: cookieMapEx['sk'],
+      avatarUrl: Optional.of(userinfo.avatarUrl),
+      username: Optional.of(userinfo.username),
+      memberId: Optional.of(cookieMapEx['ipb_member_id']),
+      passHash: Optional.of(cookieMapEx['ipb_pass_hash']),
+      igneous: Optional.of(cookieMapEx['igneous']),
+      hathPerks: Optional.of(cookieMapEx['hath_perks']),
+      sk: Optional.of(cookieMapEx['sk']),
     );
 
     return user;
@@ -256,13 +257,13 @@ class EhUserManager {
     };
 
     final User user = kDefUser.copyWith(
-      avatarUrl: userinfo.avatarUrl,
-      username: userinfo.username,
-      memberId: cookieMapEx['ipb_member_id'],
-      passHash: cookieMapEx['ipb_pass_hash'],
-      igneous: cookieMapEx['igneous'],
-      hathPerks: cookieMapEx['hath_perks'],
-      sk: cookieMapEx['sk'],
+      avatarUrl: Optional.of(userinfo.avatarUrl),
+      username: Optional.of(userinfo.username),
+      memberId: Optional.of(cookieMapEx['ipb_member_id']),
+      passHash: Optional.of(cookieMapEx['ipb_pass_hash']),
+      igneous: Optional.of(cookieMapEx['igneous']),
+      hathPerks: Optional.of(cookieMapEx['hath_perks']),
+      sk: Optional.of(cookieMapEx['sk']),
     );
 
     return user;
@@ -296,8 +297,8 @@ class EhUserManager {
     logger.d('username $username   ${avatarElm?.outerHtml}');
 
     return kDefUser.copyWith(
-      avatarUrl: _avatarUrl,
-      username: username,
+      avatarUrl: Optional.of(_avatarUrl),
+      username: Optional.of(username),
     );
   }
 
@@ -331,11 +332,11 @@ class EhUserManager {
     };
 
     userController.user(userController.user.value.copyWith(
-      memberId: cookieMapEx['ipb_member_id'],
-      passHash: cookieMapEx['ipb_pass_hash'],
-      igneous: cookieMapEx['igneous'],
-      hathPerks: cookieMapEx['hath_perks'],
-      sk: cookieMapEx['sk'],
+      memberId: Optional.of(cookieMapEx['ipb_member_id']),
+      passHash: Optional.of(cookieMapEx['ipb_pass_hash']),
+      igneous: Optional.of(cookieMapEx['igneous']),
+      hathPerks: Optional.of(cookieMapEx['hath_perks']),
+      sk: Optional.of(cookieMapEx['sk']),
     ));
   }
 }

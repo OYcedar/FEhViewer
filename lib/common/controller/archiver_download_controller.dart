@@ -15,6 +15,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:quiver/core.dart';
 
 Future<String> get defDownloadPath async => GetPlatform.isAndroid
     ? path.join((await getExternalStorageDirectory())!.path, 'Download')
@@ -102,8 +103,8 @@ class ArchiverDownloadController extends GetxController {
       return;
     }
 
-    archiverTaskMap[_key] = archiverTaskMap[_key]!
-        .copyWith(status: status.value, progress: progress);
+    archiverTaskMap[_key] = archiverTaskMap[_key]!.copyWith(
+        status: Optional.of(status.value), progress: Optional.of(progress));
 
     final _tag = archiverTaskMap[_key]!.tag;
     if (Get.isRegistered<DownloadViewController>()) {
@@ -134,14 +135,14 @@ class ArchiverDownloadController extends GetxController {
     final String? _taskId = await _downloadArchiverFile(url, _downloadPath);
 
     archiverTaskMap[_tag] = kDefDownloadTaskInfo.copyWith(
-      tag: _tag,
-      gid: gid,
-      type: dlType,
-      taskId: _taskId,
-      title: title,
-      imgUrl: imgUrl,
-      galleryUrl: galleryUrl,
-      filePath: _downloadPath,
+      tag: Optional.of(_tag),
+      gid: Optional.of(gid),
+      type: Optional.of(dlType),
+      taskId: Optional.of(_taskId),
+      title: Optional.of(title),
+      imgUrl: Optional.of(imgUrl),
+      galleryUrl: Optional.of(galleryUrl),
+      filePath: Optional.of(_downloadPath),
     );
 
     _downloadViewAnimateListAdd();
@@ -233,8 +234,8 @@ class ArchiverDownloadController extends GetxController {
 
         // 触发ever 保存到GS中
         archiverTaskMap[_taskInfo.tag!] = _taskInfo.copyWith(
-          status: downloadTask.status.value,
-          progress: downloadTask.progress,
+          status: Optional.of(downloadTask.status.value),
+          progress: Optional.of(downloadTask.progress),
         );
 
         // 更新视图

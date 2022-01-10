@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class WebdavProfile {
-  
+
   const WebdavProfile({
     required this.url,
     this.user,
@@ -42,23 +45,23 @@ class WebdavProfile {
     syncReadProgress: syncReadProgress
   );
 
-    
+
   WebdavProfile copyWith({
     String? url,
-    String? user,
-    String? password,
-    bool? syncHistory,
-    bool? syncReadProgress
+    Optional<String?>? user,
+    Optional<String?>? password,
+    Optional<bool?>? syncHistory,
+    Optional<bool?>? syncReadProgress
   }) => WebdavProfile(
     url: url ?? this.url,
-    user: user ?? this.user,
-    password: password ?? this.password,
-    syncHistory: syncHistory ?? this.syncHistory,
-    syncReadProgress: syncReadProgress ?? this.syncReadProgress,
-  );  
+    user: checkOptional(user, this.user),
+    password: checkOptional(password, this.password),
+    syncHistory: checkOptional(syncHistory, this.syncHistory),
+    syncReadProgress: checkOptional(syncReadProgress, this.syncReadProgress),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is WebdavProfile && url == other.url && user == other.user && password == other.password && syncHistory == other.syncHistory && syncReadProgress == other.syncReadProgress;
 
   @override

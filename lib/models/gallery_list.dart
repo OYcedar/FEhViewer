@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'gallery_item.dart';
 import 'favcat.dart';
 
 @immutable
 class GalleryList {
-  
+
   const GalleryList({
     this.gallerys,
     this.maxPage,
@@ -38,21 +41,21 @@ class GalleryList {
     favList: favList?.map((e) => e.clone()).toList()
   );
 
-    
+
   GalleryList copyWith({
-    List<GalleryItem>? gallerys,
-    int? maxPage,
-    int? nextPage,
-    List<Favcat>? favList
+    Optional<List<GalleryItem>?>? gallerys,
+    Optional<int?>? maxPage,
+    Optional<int?>? nextPage,
+    Optional<List<Favcat>?>? favList
   }) => GalleryList(
-    gallerys: gallerys ?? this.gallerys,
-    maxPage: maxPage ?? this.maxPage,
-    nextPage: nextPage ?? this.nextPage,
-    favList: favList ?? this.favList,
-  );  
+    gallerys: checkOptional(gallerys, this.gallerys),
+    maxPage: checkOptional(maxPage, this.maxPage),
+    nextPage: checkOptional(nextPage, this.nextPage),
+    favList: checkOptional(favList, this.favList),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is GalleryList && gallerys == other.gallerys && maxPage == other.maxPage && nextPage == other.nextPage && favList == other.favList;
 
   @override

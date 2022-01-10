@@ -30,7 +30,7 @@
   "favcat?": "1",
   "localFav?": false,
   "simpleTags?": "$[]simple_tag",
-  "tagsFromApi?": [],
+  "tagsFromApi?": [""],
   "translated?": "chinese",
   "tagGroup?": "$[]tag_group",
   "galleryComment?": "$[]gallery_comment",

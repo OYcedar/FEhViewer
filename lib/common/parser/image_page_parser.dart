@@ -4,6 +4,7 @@ import 'package:fehviewer/models/index.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:html_unescape/html_unescape.dart';
+import 'package:quiver/core.dart';
 
 GalleryImage paraImage(String htmlText) {
   final Document document = parse(htmlText);
@@ -57,17 +58,16 @@ GalleryImage paraImage(String htmlText) {
     originImageUrl =
         '${htmlUnescape.convert(match!.group(1)!)}fullimg.php${htmlUnescape.convert(match.group(2)!)}';
   }
-  print('====================>$originImageUrl');
 
   final GalleryImage _reImage = kDefGalleryImage.copyWith(
-    imageUrl: imageUrl,
-    sourceId: _sourceId,
-    imageWidth: width,
-    imageHeight: height,
-    gid: gid,
-    token: token,
+    imageUrl: Optional.of(imageUrl),
+    sourceId: Optional.of(_sourceId),
+    imageWidth: Optional.of(width),
+    imageHeight: Optional.of(height),
+    gid: Optional.of(gid),
+    token: Optional.of(token),
     ser: ser,
-    originImageUrl: originImageUrl,
+    originImageUrl: Optional.of(originImageUrl),
   );
 
   return _reImage;

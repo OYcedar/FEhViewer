@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 import 'gallery_tag.dart';
 
 @immutable
 class TagGroup {
-  
+
   const TagGroup({
     this.tagType,
     required this.galleryTags,
@@ -27,17 +30,17 @@ class TagGroup {
     galleryTags: galleryTags.map((e) => e.clone()).toList()
   );
 
-    
+
   TagGroup copyWith({
-    String? tagType,
+    Optional<String?>? tagType,
     List<GalleryTag>? galleryTags
   }) => TagGroup(
-    tagType: tagType ?? this.tagType,
+    tagType: checkOptional(tagType, this.tagType),
     galleryTags: galleryTags ?? this.galleryTags,
-  );  
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is TagGroup && tagType == other.tagType && galleryTags == other.galleryTags;
 
   @override

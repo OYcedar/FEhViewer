@@ -6,6 +6,7 @@ import 'package:get/get.dart' hide Node;
 import 'package:html/dom.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:intl/intl.dart';
+import 'package:quiver/core.dart';
 
 String parseErrGallery(String response) {
   final Document document = parse(response);
@@ -104,8 +105,9 @@ List<GalleryComment> parseGalleryComment(Document document) {
           if (commentSpansf.isNotEmpty &&
               (commentSpansf.last.sType == CommentSpanType.text)) {
             // commentSpansf.last.text += _nodeText;
-            commentSpansf.last = commentSpansf.last
-                .copyWith(text: '${commentSpansf.last.text ?? ''}$_nodeText');
+            commentSpansf.last = commentSpansf.last.copyWith(
+                text:
+                    Optional.of('${commentSpansf.last.text ?? ''}$_nodeText'));
           } else {
             commentSpansf.add(GalleryCommentSpan(text: _nodeText)
                 .copyWithSpanType(CommentSpanType.text));
@@ -117,8 +119,8 @@ List<GalleryComment> parseGalleryComment(Document document) {
             if (commentSpansf.isNotEmpty &&
                 (commentSpansf.last.sType == CommentSpanType.text)) {
               // commentSpansf.last.text += '\n';
-              commentSpansf.last = commentSpansf.last
-                  .copyWith(text: '${commentSpansf.last.text ?? ''}\n');
+              commentSpansf.last = commentSpansf.last.copyWith(
+                  text: Optional.of('${commentSpansf.last.text ?? ''}\n'));
             } else {
               // commentSpansf.add(GalleryCommentSpan()
               //   ..text = '\n'
@@ -166,7 +168,8 @@ List<GalleryComment> parseGalleryComment(Document document) {
                   (commentSpansf.last.sType == CommentSpanType.text)) {
                 // commentSpansf.last.text += _nodeElm.text;
                 commentSpansf.last = commentSpansf.last.copyWith(
-                    text: '${commentSpansf.last.text}${_nodeElm?.text ?? ''}');
+                    text: Optional.of(
+                        '${commentSpansf.last.text}${_nodeElm?.text ?? ''}'));
               } else {
                 commentSpansf.add(
                     GalleryCommentSpan(text: _nodeElm?.text ?? _nodeHref)

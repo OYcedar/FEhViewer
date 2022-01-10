@@ -10,6 +10,7 @@ import 'package:fehviewer/utils/vibrate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 import '../common.dart';
 import '../controller/view_contorller.dart';
@@ -299,8 +300,8 @@ class _ViewImageState extends State<ViewImage> with TickerProviderStateMixin {
                         //     .copyWith(filePath: _image.filePath!);
                         vState.galleryPageController.uptImageBySer(
                             ser: _image.ser,
-                            image: vState.imageMap[widget.imageSer]!
-                                .copyWith(filePath: _image.filePath!));
+                            image: vState.imageMap[widget.imageSer]!.copyWith(
+                                filePath: Optional.of(_image.filePath!)));
 
                         // logger
                         //     .d('${vState.imageMap[widget.imageSer]?.toJson()}');
@@ -330,8 +331,8 @@ class _ViewImageState extends State<ViewImage> with TickerProviderStateMixin {
                               !(_tmpImage.completeHeight ?? false)) {
                             vState.galleryPageController.uptImageBySer(
                                 ser: _image.ser,
-                                image:
-                                    _tmpImage.copyWith(completeHeight: true));
+                                image: _tmpImage.copyWith(
+                                    completeHeight: Optional.of(true)));
 
                             logger.v('upt _tmpImage ${_tmpImage.ser}');
                             Future.delayed(const Duration(milliseconds: 100))

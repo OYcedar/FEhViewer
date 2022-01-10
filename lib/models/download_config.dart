@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class DownloadConfig {
-  
+
   const DownloadConfig({
     this.preloadImage,
     this.multiDownload,
@@ -42,23 +45,23 @@ class DownloadConfig {
     allowMediaScan: allowMediaScan
   );
 
-    
+
   DownloadConfig copyWith({
-    int? preloadImage,
-    int? multiDownload,
-    String? downloadLocation,
-    bool? downloadOrigImage,
-    bool? allowMediaScan
+    Optional<int?>? preloadImage,
+    Optional<int?>? multiDownload,
+    Optional<String?>? downloadLocation,
+    Optional<bool?>? downloadOrigImage,
+    Optional<bool?>? allowMediaScan
   }) => DownloadConfig(
-    preloadImage: preloadImage ?? this.preloadImage,
-    multiDownload: multiDownload ?? this.multiDownload,
-    downloadLocation: downloadLocation ?? this.downloadLocation,
-    downloadOrigImage: downloadOrigImage ?? this.downloadOrigImage,
-    allowMediaScan: allowMediaScan ?? this.allowMediaScan,
-  );  
+    preloadImage: checkOptional(preloadImage, this.preloadImage),
+    multiDownload: checkOptional(multiDownload, this.multiDownload),
+    downloadLocation: checkOptional(downloadLocation, this.downloadLocation),
+    downloadOrigImage: checkOptional(downloadOrigImage, this.downloadOrigImage),
+    allowMediaScan: checkOptional(allowMediaScan, this.allowMediaScan),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is DownloadConfig && preloadImage == other.preloadImage && multiDownload == other.multiDownload && downloadLocation == other.downloadLocation && downloadOrigImage == other.downloadOrigImage && allowMediaScan == other.allowMediaScan;
 
   @override

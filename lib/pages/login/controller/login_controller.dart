@@ -11,6 +11,7 @@ import 'package:fehviewer/pages/login/view/login_cookie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 const TextStyle kTextStyle = TextStyle(
   fontSize: 18,
@@ -76,7 +77,8 @@ class LoginController extends GetxController {
     }
 
     if (user != null && user.cookie.isNotEmpty) {
-      userController.user(user.copyWith(username: usernameController.text));
+      userController
+          .user(user.copyWith(username: Optional.of(usernameController.text)));
       Api.selEhProfile();
 
       asyncGetUserInfo(user.memberId!);
@@ -125,12 +127,12 @@ class LoginController extends GetxController {
     cookieJar.saveFromResponse(Uri.parse(EHConst.EH_BASE_URL), cookies);
 
     userController.user(userController.user.value.copyWith(
-      username: memberId,
-      memberId: memberId,
-      passHash: _getCookiesValue(cookies, 'ipb_pass_hash'),
-      igneous: _getCookiesValue(cookies, 'igneous'),
-      hathPerks: _getCookiesValue(cookies, 'hath_perks'),
-      sk: _getCookiesValue(cookies, 'sk'),
+      username: Optional.of(memberId),
+      memberId: Optional.of(memberId),
+      passHash: Optional.of(_getCookiesValue(cookies, 'ipb_pass_hash')),
+      igneous: Optional.of(_getCookiesValue(cookies, 'igneous')),
+      hathPerks: Optional.of(_getCookiesValue(cookies, 'hath_perks')),
+      sk: Optional.of(_getCookiesValue(cookies, 'sk')),
     ));
 
     await asyncGetUserInfo(memberId);
@@ -172,12 +174,12 @@ class LoginController extends GetxController {
       }
 
       userController.user(userController.user.value.copyWith(
-        username: memberId,
-        memberId: memberId,
-        passHash: _getCookiesValue(cookies, 'ipb_pass_hash'),
-        igneous: _getCookiesValue(cookies, 'igneous'),
-        hathPerks: _getCookiesValue(cookies, 'hath_perks'),
-        sk: _getCookiesValue(cookies, 'sk'),
+        username: Optional.of(memberId),
+        memberId: Optional.of(memberId),
+        passHash: Optional.of(_getCookiesValue(cookies, 'ipb_pass_hash')),
+        igneous: Optional.of(_getCookiesValue(cookies, 'igneous')),
+        hathPerks: Optional.of(_getCookiesValue(cookies, 'hath_perks')),
+        sk: Optional.of(_getCookiesValue(cookies, 'sk')),
       ));
 
       if (memberId.isNotEmpty) {
@@ -194,8 +196,8 @@ class LoginController extends GetxController {
     logger.d('异步获取昵称和头像');
     final info = await getUserInfo(memberId);
     userController.user(userController.user.value.copyWith(
-      nickName: info?.nickName,
-      avatarUrl: info?.avatarUrl,
+      nickName: Optional.of(info?.nickName),
+      avatarUrl: Optional.of(info?.avatarUrl),
     ));
     userController.update();
   }

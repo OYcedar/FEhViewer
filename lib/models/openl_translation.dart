@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+import 'index.dart';
+
 
 
 @immutable
 class OpenlTranslation {
-  
+
   const OpenlTranslation({
     this.status,
     this.text,
@@ -42,23 +45,23 @@ class OpenlTranslation {
     targetLang: targetLang
   );
 
-    
+
   OpenlTranslation copyWith({
-    bool? status,
-    String? text,
-    String? result,
-    String? sourceLang,
-    String? targetLang
+    Optional<bool?>? status,
+    Optional<String?>? text,
+    Optional<String?>? result,
+    Optional<String?>? sourceLang,
+    Optional<String?>? targetLang
   }) => OpenlTranslation(
-    status: status ?? this.status,
-    text: text ?? this.text,
-    result: result ?? this.result,
-    sourceLang: sourceLang ?? this.sourceLang,
-    targetLang: targetLang ?? this.targetLang,
-  );  
+    status: checkOptional(status, this.status),
+    text: checkOptional(text, this.text),
+    result: checkOptional(result, this.result),
+    sourceLang: checkOptional(sourceLang, this.sourceLang),
+    targetLang: checkOptional(targetLang, this.targetLang),
+  );
 
   @override
-  bool operator ==(Object other) => identical(this, other) 
+  bool operator ==(Object other) => identical(this, other)
     || other is OpenlTranslation && status == other.status && text == other.text && result == other.result && sourceLang == other.sourceLang && targetLang == other.targetLang;
 
   @override

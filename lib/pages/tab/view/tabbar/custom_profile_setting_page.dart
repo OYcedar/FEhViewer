@@ -17,6 +17,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 import 'package:reorderables/reorderables.dart';
 
 import '../../../../common/service/layout_service.dart';
@@ -78,10 +79,10 @@ class _CustomProfileSettingPageState extends State<CustomProfileSettingPage> {
     logger.d('searchWithminRating $searchWithminRating $minRating');
 
     customProfile = customProfile.copyWith(
-      enableAdvance: enableAdvance,
-      searchText: searchText,
-      listModeValue: listMode.name,
-      advSearch: customProfile.advSearch?.copyWith(
+      enableAdvance: Optional.of(enableAdvance),
+      searchText: Optional.of(searchText),
+      listModeValue: Optional.of(listMode.name),
+      advSearch: Optional.of(customProfile.advSearch?.copyWith(
             searchGalleryName: searchGalleryName,
             searchGalleryTags: searchGalleryTags,
             searchGalleryDesc: searchGalleryDesc,
@@ -119,7 +120,7 @@ class _CustomProfileSettingPageState extends State<CustomProfileSettingPage> {
             favSearchName: true,
             favSearchTags: true,
             favSearchNote: true,
-          ),
+          )),
     );
 
     logger.d('${jsonEncode(customProfile)}');
@@ -351,8 +352,8 @@ class _CustomProfileSettingPageState extends State<CustomProfileSettingPage> {
                         groupValue: _listType,
                         onValueChanged: (GalleryListType? value) {
                           customProfile = customProfile.copyWith(
-                              listTypeValue:
-                                  value?.name ?? GalleryListType.gallery.name);
+                              listTypeValue: Optional.of(
+                                  value?.name ?? GalleryListType.gallery.name));
                           setState(() {
                             _listType = value ?? GalleryListType.gallery;
                           });
@@ -523,7 +524,8 @@ class _CustomProfileSettingPageState extends State<CustomProfileSettingPage> {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                   onCatNumChanged: (int value) {
                     logger.d('onCatNumChanged $value');
-                    customProfile = customProfile.copyWith(cats: value);
+                    customProfile =
+                        customProfile.copyWith(cats: Optional.of(value));
                   },
                 ),
                 // Divider(
