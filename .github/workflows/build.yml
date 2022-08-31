@@ -4,10 +4,8 @@ name: Test, Build and Release apk
 # 工作流程触发的时机，这里是当一个版本标签推送到仓库时触发
 on:
   push:
-    branches:
-      - 'build'
     tags:
-      - v*
+      - v*!i
 
 # 这个工作流程需要执行的任务
 jobs:
@@ -38,7 +36,9 @@ jobs:
           channel: "stable"
       # 下载项目依赖
       - name: Flutter pub get
-        run: mv lib/config/config.dart.sample lib/config/config.dart | flutter pub get
+        run: |
+          mv lib/config/config.dart.sample lib/config/config.dart
+          flutter pub get
       - run: |
           echo $ENCODED_KEYSTORE | base64 -di > android/app/keystore.jks
         env:
